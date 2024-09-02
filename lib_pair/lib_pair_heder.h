@@ -16,8 +16,10 @@ class TPair {
     T1 _first;
     T2 _second;
 public:
+
     TPair() : _first(NULL), _second(NULL) { }
-    TPair(const T1& first, const T2& second) : _first(first), _second(second) { }
+    TPair(const T1& first, const T2& second)\
+        : _first(first), _second(second) { }
     TPair(const TPair& pair) : _first(pair._first), _second(pair._second) { }
     ~TPair() { }
 
@@ -33,11 +35,13 @@ public:
 
     bool operator==(const TPair& pair) const noexcept;
 
-    friend TPair& operator-(const TPair<T1, T2>& pair1, const TPair<T1, T2>& pair2) noexcept;
+    friend TPair& operator-\
+        (const TPair<T1, T2>& pair1, const TPair<T1, T2>& pair2) noexcept;
 
     std::string to_string() const noexcept;
 
-    friend std::ostream& operator<<<T1, T2>(std::ostream& out, const TPair<T1, T2>& pair) noexcept;
+    friend std::ostream& operator<<<T1, T2>\
+        (std::ostream& out, const TPair<T1, T2>& pair) noexcept;
 };
 
 template <class T1, class T2>

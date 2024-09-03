@@ -28,19 +28,31 @@ class TPair {
     inline void set_first(const T1& value) noexcept;
     inline void set_second(const T2& value) noexcept;
 
+    void change(TPair& P1, TPair& P2);
+
     TPair& operator=(const TPair& pair) noexcept;
     TPair& operator-=(const TPair& pair) noexcept;
+    TPair& operator+=(const TPair& pair) noexcept;
+    TPair& operator*=(const TPair& pair) noexcept;
+    TPair& operator/=(const TPair& pair) noexcept;
 
     TPair<T1, T2> operator+(const TPair<T1, T2>& other) const noexcept;
+    TPair<T1, T2> operator-(const TPair<T1, T2>& other) const noexcept;
+    TPair<T1, T2> operator*(const TPair<T1, T2>& other) const noexcept;
+    TPair<T1, T2> operator/(const TPair<T1, T2>& other) const noexcept;
+    TPair<T1, T2> operator**(const TPair<T1, T2>& other) const noexcept;
 
     bool operator==(const TPair& pair) const noexcept;
-
-    TPair<T1, T2> operator-(const TPair<T1, T2>& other) const noexcept;
+    bool operator!=(const TPair& pair) const noexcept;
+    bool operator<=(const TPair& pair) const noexcept;
+    bool operator>=(const TPair& pair) const noexcept;
 
     std::string to_string() const noexcept;
 
     friend std::ostream& operator<<<T1, T2>\
         (std::ostream& out, const TPair<T1, T2>& pair) noexcept;
+    friend std::istream& operator>><T1, T2>\
+        (std::istream& out, const TPair<T1, T2>& pair) noexcept;
 };
 
 template <class T1, class T2>

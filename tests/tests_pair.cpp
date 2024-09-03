@@ -54,3 +54,54 @@ TEST(libPair, CheckingSetters) {
 
     EXPECT_EQ(ex.first(), 5, ex.second(), 7);
 }
+
+TEST(libPair, CheckingOperatorEqually) {
+    TPair<char, char> t;
+    TPair<char, char> ans('a', 'b');
+
+    t = ans;
+
+    EXPECT_EQ(t.first(), 'a', t.second(), 'b');
+}
+
+TEST(libPair, CheckingOperatorMinusIsEqualto) {
+    TPair<char, char> t('y', 'z');
+    TPair<char, char> t1('a', 'b');
+
+    t -= t1;
+
+    EXPECT_EQ(t.first(), '\x18', t.second(), '\x18');
+}
+TEST(libPair, CheckingOperatorPlus) {
+    TPair<double, double> f(1.5, 3.14);
+    TPair<double, double> _f(1.6, 4.86);
+    TPair<double, double> ans;
+
+    ans = f + _f;
+
+    EXPECT_EQ(ans.first(), 3.1, ans.second(), 8.0);
+}
+
+TEST(libPair, CheckingOperatorComparison) {
+    TPair<bool, bool> f;
+    TPair<bool, bool> _f(true, true);
+
+    EXPECT_EQ(f == _f, false);
+}
+
+TEST(libPair, CheckingOperatorMinus) {
+    TPair<int, int> f(2, 4);
+    TPair<int, int> _f(1, 3);
+    TPair<int, int> ans;
+
+    ans = f - _f;
+
+    EXPECT_EQ(ans.first(), 1, ans.second(), 1);
+}
+
+TEST(libPair, CheckingFunctionTo_string) {
+    TPair<int, int> t(12, 24);
+    std::string str = "(12, 24)";
+
+    EXPECT_EQ(t.to_string(), str);
+}

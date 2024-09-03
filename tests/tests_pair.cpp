@@ -39,7 +39,7 @@ TEST(libPair, CheckingCopyConstructorsFunc) {
 
 TEST(libPair, CheckingGetters) {
     TPair<int, int> ex(3, 5);
-	
+
     int _first = ex.first();
     int _second = ex.second();
 

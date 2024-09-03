@@ -28,7 +28,7 @@ class TPair {
     inline void set_first(const T1& value) noexcept;
     inline void set_second(const T2& value) noexcept;
 
-    void change(TPair& P1, TPair& P2);
+    void changeWith(const TPair& t);
 
     TPair& operator=(const TPair& pair) noexcept;
     TPair& operator-=(const TPair& pair) noexcept;

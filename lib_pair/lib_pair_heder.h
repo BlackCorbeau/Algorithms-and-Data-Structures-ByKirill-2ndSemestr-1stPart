@@ -80,7 +80,8 @@ TPair<T1, T2>& TPair<T1, T2>::operator-=(const TPair<T1, T2>& pair) noexcept {
 }
 
 template <class T1, class T2>
-TPair<T1, T2> TPair<T1, T2>::operator+(const TPair<T1, T2>& other) const noexcept {
+TPair<T1, T2>\
+TPair<T1, T2>::operator+(const TPair<T1, T2>& other) const noexcept {
     TPair<T1, T2> result;
     result._first = _first + other._first;
     result._second = _second + other._second;
@@ -96,7 +97,8 @@ bool TPair<T1, T2>::operator==(const TPair& pair) const noexcept {
 }
 
 template <class T1, class T2>
-TPair<T1, T2> TPair<T1, T2>::operator-(const TPair<T1, T2>& other) const noexcept {
+TPair<T1, T2> TPair<T1, T2>::operator-(const TPair<T1, T2>& other)\
+const noexcept {
     TPair<T1, T2> result;
     result._first = _first - other._first;
     result._second = _second - other._second;

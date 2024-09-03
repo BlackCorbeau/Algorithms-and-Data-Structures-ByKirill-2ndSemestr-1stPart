@@ -6,6 +6,7 @@
 #include <iostream>
 #include <iomanip>
 #include "../lib_easy_example/easy_example.h"
+#include "../lib_pair/lib_pair_heder.h"
 
 int main() {
   int a, b;

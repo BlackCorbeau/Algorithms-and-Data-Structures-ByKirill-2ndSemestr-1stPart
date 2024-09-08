@@ -11,7 +11,8 @@ template <class T1, class T2> class TPair;
 template <class T1, class T2>
 std::ostream& operator<<(std::ostream& out, const TPair<T1, T2>& obj) noexcept;
 template <class T1, class T2>
-std::istream& operator>>(std::istream& input, const TPair<T1, T2>& obj) noexcept;
+std::istream& operator>>(std::istream& input, const TPair<T1, T2>& obj)\
+noexcept;
 
 template <class T1, class T2>
 class TPair {

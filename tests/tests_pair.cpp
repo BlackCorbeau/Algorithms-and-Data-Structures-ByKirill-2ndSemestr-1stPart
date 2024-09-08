@@ -142,3 +142,13 @@ TEST(libPair, CheckingOperatorMult) {
 
     EXPECT_EQ(ans.first(), 24, ans.second(), 8);
 }
+
+TEST(libPair, CheckingOperatorDel) {
+    TPair<int, int> t(12, 4);
+    TPair<int, int> t1(2, 2);
+    TPair<int, int> ans;
+
+    ans = t / t1;
+
+    EXPECT_EQ(ans.first(), 6, ans.second(), 2);
+}

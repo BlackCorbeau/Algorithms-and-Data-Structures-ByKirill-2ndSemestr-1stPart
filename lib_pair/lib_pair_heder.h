@@ -154,8 +154,7 @@ template <class T1, class T2>
 bool TPair<T1, T2>::operator!=(const TPair& pair) const noexcept {
     if (_first != pair._first) {
         return true;
-    }
-    else if (_second != pair._second) { return true; }
+    } else if (_second != pair._second) { return true; }
     return false;
 }
 

@@ -161,3 +161,12 @@ TEST(libPair, CheckingOperatorNotRav) {
 
     EXPECT_EQ(t != t1, false, t != t2, true);
 }
+
+TEST(libPair, CheckingOperatorMinerORRav) {
+    TPair<int, int> t(2, 2);
+    TPair<int, int> t1(2, 2);
+    TPair<int, int> t2(4, 4);
+    TPair<int, int> t3(1, 1);
+
+    EXPECT_EQ(t <= t1, true, t <= t2, true, t <= t3, false);
+}

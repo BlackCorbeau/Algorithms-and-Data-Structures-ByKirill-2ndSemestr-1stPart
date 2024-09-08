@@ -115,11 +115,20 @@ TEST(libPair, CheckingOperatorPlusRavno) {
     EXPECT_EQ(t1.first(), 13, t1.second(), 5);
 }
 
-TEST(libPair, CheckingOperatorMultypyRavno) {
-    TPair<int, int> t(2, 8);
-    TPair<int, int> t1(4, 2);
+TEST(libPair, CheckingOperatorMultRavno) {
+    TPair<int, int> t(12, 4);
+    TPair<int, int> t1(2, 2);
 
     t1 *= t;
 
-    EXPECT_EQ(t1.first(), 8, t1.second(), 16);
+    EXPECT_EQ(t1.first(), 24, t1.second(), 8);
+}
+
+TEST(libPair, CheckingOperatorDelRavno) {
+    TPair<int, int> t(12, 4);
+    TPair<int, int> t1(2, 2);
+
+    t1 /= t;
+
+    EXPECT_EQ(t1.first(), 24, t1.second(), 8);
 }

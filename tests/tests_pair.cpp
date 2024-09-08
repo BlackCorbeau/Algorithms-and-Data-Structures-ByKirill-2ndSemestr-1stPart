@@ -128,7 +128,17 @@ TEST(libPair, CheckingOperatorDelRavno) {
     TPair<int, int> t(12, 4);
     TPair<int, int> t1(2, 2);
 
-    t1 /= t;
+    t /= t1;
 
-    EXPECT_EQ(t1.first(), 24, t1.second(), 8);
+    EXPECT_EQ(t.first(), 6, t.second(), 2);
+}
+
+TEST(libPair, CheckingOperatorMult) {
+    TPair<int, int> t(12, 4);
+    TPair<int, int> t1(2, 2);
+    TPair<int, int> ans;
+
+    ans = t1 * t;
+
+    EXPECT_EQ(ans.first(), 24, ans.second(), 8);
 }

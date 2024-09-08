@@ -39,8 +39,8 @@ class TPair {
 
     TPair<T1, T2> operator+(const TPair<T1, T2>& other) const noexcept;
     TPair<T1, T2> operator-(const TPair<T1, T2>& other) const noexcept;
-    /*TPair<T1, T2> operator*(const TPair<T1, T2>& other) const noexcept;
-    TPair<T1, T2> operator/(const TPair<T1, T2>& other) const noexcept;
+    TPair<T1, T2> operator*(const TPair<T1, T2>& other) const noexcept;
+    /*TPair<T1, T2> operator/(const TPair<T1, T2>& other) const noexcept;
     TPair<T1, T2> operator**(const TPair<T1, T2>& other) const noexcept;*/
 
     bool operator==(const TPair& pair) const noexcept;
@@ -137,6 +137,12 @@ const noexcept {
     result._first = _first - other._first;
     result._second = _second - other._second;
     return result;
+}
+
+template <class T1, class T2>
+TPair<T1, T2> TPair<T1, T2>::operator*(const TPair<T1, T2>& other)\
+const noexcept {
+    return TPair<T1, T2>(_first * other._first, _second * other._second);
 }
 
 

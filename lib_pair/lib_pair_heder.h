@@ -46,15 +46,15 @@ class TPair {
     bool operator!=(const TPair& pair) const noexcept;
     bool operator<=(const TPair& pair) const noexcept;
     bool operator>=(const TPair& pair) const noexcept;
-    /*bool operator>(const TPair& pair) const noexcept;
-    bool operator<(const TPair& pair) const noexcept;*/
+    bool operator>(const TPair& pair) const noexcept;
+    /*bool operator<(const TPair& pair) const noexcept;*/
 
     std::string to_string() const noexcept;
 
     friend std::ostream& operator<<<T1, T2>\
         (std::ostream& out, const TPair<T1, T2>& pair) noexcept;
-    /*friend std::istream& operator>><T1, T2>\
-        (std::istream& out, const TPair<T1, T2>& pair) noexcept;*/
+    friend std::istream& operator>><T1, T2>\
+        (std::istream& input, const TPair<T1, T2>& pair) noexcept;
 };
 
 template <class T1, class T2>
@@ -171,6 +171,11 @@ bool TPair<T1, T2>::operator>=(const TPair& pair) const noexcept {
 }
 
 template <class T1, class T2>
+bool TPair<T1, T2>::operator>(const TPair& pair) const noexcept {
+    return _first > pair._first && _second > pair._second;
+}
+
+template <class T1, class T2>
 std::string TPair<T1, T2>::to_string() const noexcept {
     std::string str = \
         "(" + std::to_string(_first) + ", " + std::to_string(_second) + ")";
@@ -182,6 +187,13 @@ std::ostream& operator<< <T1, T2>\
 (std::ostream& out, const TPair<T1, T2>& pair) noexcept {
     out << pair.to_string();
     return out;
+}
+
+template <class T1, class T2>
+std::istream& operator>> <T1, T2>\
+(std::istream& input, const TPair<T1, T2>& pair) noexcept {
+    input >> pair.set_first() >> pair.set_second();
+    return input;
 }
 
 #endif  // LIB_PAIR_LIB_PAIR_HEDER_H_

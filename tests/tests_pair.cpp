@@ -85,8 +85,9 @@ TEST(libPair, CheckingOperatorPlus) {
 TEST(libPair, CheckingOperatorComparison) {
     TPair<bool, bool> f;
     TPair<bool, bool> _f(true, true);
+    TPair<bool, bool> f1;
 
-    EXPECT_EQ(f == _f, false);
+    EXPECT_EQ(f == _f, false, f == f1, true);
 }
 
 TEST(libPair, CheckingOperatorMinus) {
@@ -151,4 +152,12 @@ TEST(libPair, CheckingOperatorDel) {
     ans = t / t1;
 
     EXPECT_EQ(ans.first(), 6, ans.second(), 2);
+}
+
+TEST(libPair, CheckingOperatorNotRav) {
+    TPair<int, int> t(2, 2);
+    TPair<int, int> t1(2, 2);
+    TPair<int, int> t2(4, 4);
+
+    EXPECT_EQ(t != t1, false, t != t2, true);
 }

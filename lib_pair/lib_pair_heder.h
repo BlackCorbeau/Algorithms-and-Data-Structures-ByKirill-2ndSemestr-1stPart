@@ -41,10 +41,9 @@ class TPair {
     TPair<T1, T2> operator-(const TPair<T1, T2>& other) const noexcept;
     TPair<T1, T2> operator*(const TPair<T1, T2>& other) const noexcept;
     TPair<T1, T2> operator/(const TPair<T1, T2>& other) const noexcept;
-    /*TPair<T1, T2> operator**(const TPair<T1, T2>& other) const noexcept;*/
 
     bool operator==(const TPair& pair) const noexcept;
-    /*bool operator!=(const TPair& pair) const noexcept;*/
+    bool operator!=(const TPair& pair) const noexcept;
     /*bool operator<=(const TPair& pair) const noexcept;
     bool operator>=(const TPair& pair) const noexcept;*/
 
@@ -151,6 +150,14 @@ const noexcept {
     return TPair<T1, T2>(_first / other._first, _second / other._second);
 }
 
+template <class T1, class T2>
+bool TPair<T1, T2>::operator!=(const TPair& pair) const noexcept {
+    if (_first != pair._first) {
+        return true;
+    }
+    else if (_second != pair._second) { return true; }
+    return false;
+}
 
 template <class T1, class T2>
 std::string TPair<T1, T2>::to_string() const noexcept {

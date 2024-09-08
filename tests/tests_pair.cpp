@@ -105,3 +105,21 @@ TEST(libPair, CheckingFunctionTo_string) {
 
     EXPECT_EQ(t.to_string(), str);
 }
+
+TEST(libPair, CheckingOperatorPlusRavno) {
+    TPair<int, int> t(12, 4);
+    TPair<int, int> t1(1, 1);
+
+    t1 += t;
+
+    EXPECT_EQ(t1.first(), 13, t1.second(), 5);
+}
+
+TEST(libPair, CheckingOperatorMultypyRavno) {
+    TPair<int, int> t(2, 8);
+    TPair<int, int> t1(4, 2);
+
+    t1 *= t;
+
+    EXPECT_EQ(t1.first(), 8, t1.second(), 16);
+}

@@ -187,3 +187,11 @@ TEST(libPair, CheckingOperatorBigger) {
 
     EXPECT_EQ(t > t1, false, t > t2, true);
 }
+
+TEST(libPair, CheckingOperatorSmaller) {
+    TPair<int, int> t(3, 3);
+    TPair<int, int> t1(4, 4);
+    TPair<int, int> t2(1, 1);
+
+    EXPECT_EQ(t < t1, true, t < t2, false);
+}

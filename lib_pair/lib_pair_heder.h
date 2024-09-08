@@ -47,7 +47,7 @@ class TPair {
     bool operator<=(const TPair& pair) const noexcept;
     bool operator>=(const TPair& pair) const noexcept;
     bool operator>(const TPair& pair) const noexcept;
-    /*bool operator<(const TPair& pair) const noexcept;*/
+    bool operator<(const TPair& pair) const noexcept;
 
     std::string to_string() const noexcept;
 
@@ -173,6 +173,11 @@ bool TPair<T1, T2>::operator>=(const TPair& pair) const noexcept {
 template <class T1, class T2>
 bool TPair<T1, T2>::operator>(const TPair& pair) const noexcept {
     return _first > pair._first && _second > pair._second;
+}
+
+template <class T1, class T2>
+bool TPair<T1, T2>::operator<(const TPair& pair) const noexcept {
+    return _first < pair._first && _second < pair._second;
 }
 
 template <class T1, class T2>

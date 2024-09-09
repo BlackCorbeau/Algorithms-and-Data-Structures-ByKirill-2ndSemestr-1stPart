@@ -19,10 +19,11 @@ namespace algorithms {
 
     template<typename T>
     T max(T val_1, T val_2) {
-        if (val_1 > val_2) return val_1;
-        else return val_2;
+        if (val_1 > val_2) { return val_1 };
+        else { return val_2 };
     }
 }
+// namespace algorithms
 
 template <typename T>
 class DMassiv {
@@ -31,7 +32,8 @@ class DMassiv {
     size_t _capacity;
     size_t _size;
     size_t _deleted;
-public:
+
+public: 
     DMassiv();
     DMassiv(const DMassiv& archive);
     DMassiv(const T* arr, size_t n);
@@ -75,11 +77,12 @@ public:
     DMassiv& remove_first(T value);
     DMassiv& remove_last(T value);
 
-    size_t* find_all(T value, size_t& count) const noexcept;
+    size_t& find_all(T value, size_t& count) const noexcept;
     size_t find_first(T value);
     size_t find_last(T value);
-private:
-    //size_t count_value(T value);
+
+private: 
+    // size_t count_value(T value);
 };
 
 template <typename T>
@@ -163,7 +166,7 @@ DMassiv<T>::DMassiv(const DMassiv& archive, size_t pos, size_t len) {
 }
 
 template <typename T>
-DMassiv<T>::~DMassiv(){
+DMassiv<T>::~DMassiv() {
     delete[] _data;
     _data = nullptr;
 }
@@ -214,7 +217,8 @@ void DMassiv<T>::reserve(size_t n) {
         std::cout << "Is Full" << '\n';
         return;
     } else {
-        _capacity = ((_size + n) / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+        _capacity\
+            = ((_size + n) / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     }
     T* new_data;
     State* new_states;
@@ -316,7 +320,7 @@ template <typename T>
 DMassiv<T>& DMassiv<T>::insert(T value, size_t pos) {
     if (_size < pos) {
         throw std::logic_error("Error in function \
-\"DMassiv<T>& insert(T value, size_t pos)\": wrong position value.");
+DMassiv<" + T + ">&insert(T" + value + size_t pos + "): wrong position value.");
     }
 
     this->reserve(1);
@@ -393,7 +397,7 @@ DMassiv<T>& DMassiv<T>::remove_last(T value) {
 }
 
 template <typename T>
-size_t* DMassiv<T>::find_all(T value, size_t& count) const noexcept {
+size_t& DMassiv<T>::find_all(T value, size_t& count) const noexcept {
     size_t* find_values;
     size_t _count = 0;
     for (int i = 0; i < _size; i++) {

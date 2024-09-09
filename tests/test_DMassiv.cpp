@@ -6,9 +6,9 @@
 #define EPSILON 0.000001
 
 TEST(libDMassiv, CheckingConstructorZero) {
-	DMassiv<int> t;
+    DMassiv<int> t;
 
-	ASSERT_NO_THROW(t);
+    ASSERT_NO_THROW(t);
 }
 
 //TEST(libDMassiv, )

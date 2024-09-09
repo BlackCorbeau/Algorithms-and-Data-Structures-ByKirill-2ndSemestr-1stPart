@@ -94,8 +94,7 @@ DMassiv<T>::DMassiv() {
 }
 
 template <typename T>
-DMassiv<T>::DMassiv(const DMassiv& archive)
-{
+DMassiv<T>::DMassiv(const DMassiv& archive) {
     _capacity = archive._capacity;
     _size = archive._size;
     _deleted = archive._deleted;
@@ -104,15 +103,13 @@ DMassiv<T>::DMassiv(const DMassiv& archive)
     for (size_t i = 0; i < _capacity; i++) {
         _states[i] = archive._states[i];
     }
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         _data[i] = archive._data[i];
     }
 }
 
 template <typename T>
-DMassiv<T>::DMassiv(const T* arr, size_t n)
-{
+DMassiv<T>::DMassiv(const T* arr, size_t n) {
     _size = n;
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _states = new State[_capacity];
@@ -121,8 +118,7 @@ DMassiv<T>::DMassiv(const T* arr, size_t n)
     for (size_t i = 0; i < _capacity; i++) {
         _states[i] = State::empty;
     }
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         _data[i] = arr[i];
     }
     for (size_t i = 0; i < n; i++) {
@@ -131,8 +127,7 @@ DMassiv<T>::DMassiv(const T* arr, size_t n)
 }
 
 template <typename T>
-DMassiv<T>::DMassiv(size_t n, T value)
-{
+DMassiv<T>::DMassiv(size_t n, T value) {
     _size = n;
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _states = new State[_capacity];
@@ -141,8 +136,7 @@ DMassiv<T>::DMassiv(size_t n, T value)
     for (size_t i = 0; i < _capacity; i++) {
         _states[i] = State::empty;
     }
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         _data[i] = value;
     }
     for (size_t i = 0; i < n; i++) {
@@ -151,8 +145,7 @@ DMassiv<T>::DMassiv(size_t n, T value)
 }
 
 template <typename T>
-DMassiv<T>::DMassiv(const DMassiv& archive, size_t pos, size_t len)
-{
+DMassiv<T>::DMassiv(const DMassiv& archive, size_t pos, size_t len) {
     _size = len;
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _deleted = 0;
@@ -164,15 +157,13 @@ DMassiv<T>::DMassiv(const DMassiv& archive, size_t pos, size_t len)
     for (size_t i = 0; i < _size; i++) {
         _states[i] = State::busy;
     }
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         _data[i] = archive._data[i + pos];
     }
 }
 
 template <typename T>
-DMassiv<T>::~DMassiv()
-{
+DMassiv<T>::~DMassiv(){
     delete[] _data;
     _data = nullptr;
 }
@@ -188,35 +179,29 @@ inline bool DMassiv<T>::full() const noexcept {
 }
 
 template<typename T>
-size_t DMassiv<T>::size()
-{
+size_t DMassiv<T>::size() {
     return _size;
 }
 template<typename T>
-size_t DMassiv<T>::capacity()
-{
+size_t DMassiv<T>::capacity() {
     return _capacity;
 }
 
 template<typename T>
-const T* DMassiv<T>::data()
-{
+const T* DMassiv<T>::data() {
     return _data;
 }
 
 template<typename T>
-void DMassiv<T>::swap(DMassiv& archive)
-{
-    for (int i = 0; i < algorithms::max(_size, archive._size); i++)
-    {
+void DMassiv<T>::swap(DMassiv& archive) {
+    for (int i = 0; i < algorithms::max(_size, archive._size); i++) {
         algorithms::swap(_data[i], archive._data[i]);
     }
 }
 
 
 template<typename T>
-void DMassiv<T>::clear()
-{
+void DMassiv<T>::clear() {
     delete[] _data;
     delete[] _states;
     _size = 0;
@@ -224,28 +209,22 @@ void DMassiv<T>::clear()
 }
 
 template<typename T>
-void DMassiv<T>::reserve(size_t n)
-{
-    if (_capacity == -1)
-    {
+void DMassiv<T>::reserve(size_t n) {
+    if (_capacity == -1) {
         std::cout << "Is Full" << '\n';
         return;
-    }
-    else
-    {
+    } else {
         _capacity = ((_size + n) / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     }
     T* new_data;
     State* new_states;
     new_data = new T[_capacity];
     new_states = new State[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         new_data[i] = _data[i];
         new_states[i] = _states[i];
     }
-    for (int i = _size; i < _capacity; i++)
-    {
+    for (int i = _size; i < _capacity; i++) {
         new_states[i] = State::empty;
     }
     delete[] _data;
@@ -255,24 +234,20 @@ void DMassiv<T>::reserve(size_t n)
 }
 
 template<typename T>
-void DMassiv<T>::resize(size_t n, T value)
-{
+void DMassiv<T>::resize(size_t n, T value) {
     n -= 1;
     this->reserve(n);
-    for (int i = _size - 1; i < _size + n; i++)
-    {
+    for (int i = _size - 1; i < _size + n; i++) {
         _data[i] = value;
     }
-    for (int i = _size - 1; i < _size + n; i++)
-    {
+    for (int i = _size - 1; i < _size + n; i++) {
         _states[i] = State::busy;
     }
     _size += n;
 }
 
 template<typename T>
-void DMassiv<T>::repack()
-{
+void DMassiv<T>::repack() {
     int j = 0;
     for (int i = 0; i < _size; i++) {
         if (_states[i] != State::deleted) {
@@ -285,16 +260,13 @@ void DMassiv<T>::repack()
 }
 
 template<typename T>
-DMassiv<T>& DMassiv<T>::assign(const DMassiv& archive)
-{
+DMassiv<T>& DMassiv<T>::assign(const DMassiv& archive) {
     this->reserve(archive._size);
-    for (int i = 0; i < archive._size; i++)
-    {
+    for (int i = 0; i < archive._size; i++) {
         _data[i] = archive._data[i];
         _states[i] = State::busy;
     }
-    for (int i = archive._size; i < _capacity; i++)
-    {
+    for (int i = archive._size; i < _capacity; i++) {
         _states[i] = State::empty;
     }
     _size = archive._size;
@@ -302,25 +274,21 @@ DMassiv<T>& DMassiv<T>::assign(const DMassiv& archive)
 }
 
 template<typename T>
-void DMassiv<T>::push_back(T value)
-{
+void DMassiv<T>::push_back(T value) {
     this->reserve(1);
     _data[_size] = value;
     _size += 1;
 }
 
 template<typename T>
-void DMassiv<T>::pop_back()
-{
+void DMassiv<T>::pop_back() {
     _states[_size - 1] = State::empty;
 }
 
 template<typename T>
-void DMassiv<T>::push_front(T value)
-{
+void DMassiv<T>::push_front(T value) {
     this->reserve(1);
-    for (int i = _size; i >= 0; i--)
-    {
+    for (int i = _size; i >= 0; i--) {
         _data[i + 1] = _data[i];
     }
     _data[0] = value;
@@ -328,12 +296,9 @@ void DMassiv<T>::push_front(T value)
 }
 
 template<typename T>
-void DMassiv<T>::pop_front()
-{
-    for (int i = 0; i < _size; i++)
-    {
-        if (_states[i] == busy)
-        {
+void DMassiv<T>::pop_front() {
+    for (int i = 0; i < _size; i++) {
+        if (_states[i] == busy) {
             _states[i] = deleted;
             break;
         }
@@ -342,8 +307,7 @@ void DMassiv<T>::pop_front()
 
 
 template<typename T>
-DMassiv<T>& DMassiv<T>::remove_by_index(size_t pos)
-{
+DMassiv<T>& DMassiv<T>::remove_by_index(size_t pos) {
     _states[pos] = State::deleted;
     return *this;
 }
@@ -367,15 +331,12 @@ DMassiv<T>& DMassiv<T>::insert(T value, size_t pos) {
 }
 
 template <typename T>
-DMassiv<T>& DMassiv<T>::insert(const T* arr, size_t n, size_t pos) 
-{
+DMassiv<T>& DMassiv<T>::insert(const T* arr, size_t n, size_t pos)  {
     this->reserve(n);
-    for (int i = _size - 1; i >= pos; i--)
-    {
+    for (int i = _size - 1; i >= pos; i--) {
         _data[i + n] = _data[i];
     }
-    for (int i = pos, j = 0; i < n + pos; i++, j++)
-    {
+    for (int i = pos, j = 0; i < n + pos; i++, j++) {
         _data[i] = arr[j];
     }
     _size += n;
@@ -383,8 +344,7 @@ DMassiv<T>& DMassiv<T>::insert(const T* arr, size_t n, size_t pos)
 }
 
 template <typename T>
-DMassiv<T>& DMassiv<T>::replace(size_t pos, T new_value)
-{
+DMassiv<T>& DMassiv<T>::replace(size_t pos, T new_value) {
     _data[pos] = new_value;
     return *this;
 }
@@ -399,22 +359,17 @@ void DMassiv<T>::print() const noexcept {
 }
 
 template <typename T>
-DMassiv<T>& DMassiv<T>::erase(size_t pos, size_t n)
-{
-    for (int i = pos; i < pos + n; i++)
-    {
+DMassiv<T>& DMassiv<T>::erase(size_t pos, size_t n) {
+    for (int i = pos; i < pos + n; i++) {
         _states[i] = State::deleted;
     }
     return *this;
 }
 
 template <typename T>
-DMassiv<T>& DMassiv<T>::remove_all(T value)
-{
-    for (int i = 0; i < _size; i++)
-    {
-        if (_data[i] == value)
-        {
+DMassiv<T>& DMassiv<T>::remove_all(T value) {
+    for (int i = 0; i < _size; i++) {
+        if (_data[i] == value) {
             _states[i] = State::deleted;
         }
     }
@@ -422,44 +377,35 @@ DMassiv<T>& DMassiv<T>::remove_all(T value)
 }
 
 template <typename T>
-DMassiv<T>& DMassiv<T>::remove_first(T value)
-{
-    for (int i = 0; i < value; i++)
-    {
+DMassiv<T>& DMassiv<T>::remove_first(T value) {
+    for (int i = 0; i < value; i++) {
         _states[i] = State::deleted;
     }
     return *this;
 }
 
 template <typename T>
-DMassiv<T>& DMassiv<T>::remove_last(T value)
-{
-    for (int i = _size - 1, j = 0; j < value; i--, j++)
-    {
+DMassiv<T>& DMassiv<T>::remove_last(T value) {
+    for (int i = _size - 1, j = 0; j < value; i--, j++) {
         _states[i] = State::deleted;
     }
     return *this;
 }
 
 template <typename T>
-size_t* DMassiv<T>::find_all(T value, size_t& count) const noexcept
-{
+size_t* DMassiv<T>::find_all(T value, size_t& count) const noexcept {
     size_t* find_values;
     size_t _count = 0;
-    for (int i = 0; i < _size; i++)
-    {
-        if (_data[i] == value)
-        {
+    for (int i = 0; i < _size; i++) {
+        if (_data[i] == value) {
             _count++;
         }
     }
     find_values = new size_t[_count];
     count = _count;
     _count = 0;
-    for (int i = 0; i < _size; i++)
-    {
-        if (_data[i] == value)
-        {
+    for (int i = 0; i < _size; i++) {
+        if (_data[i] == value) {
             find_values[_count] = i;
             _count++;
         }
@@ -468,12 +414,9 @@ size_t* DMassiv<T>::find_all(T value, size_t& count) const noexcept
 }
 
 template <typename T>
-size_t DMassiv<T>::find_first(T value)
-{
-    for (int i = 0; i < _size; i++)
-    {
-        if (_data[i] == value)
-        {
+size_t DMassiv<T>::find_first(T value) {
+    for (int i = 0; i < _size; i++) {
+        if (_data[i] == value) {
             return i;
         }
     }
@@ -481,12 +424,9 @@ size_t DMassiv<T>::find_first(T value)
 }
 
 template <typename T>
-size_t DMassiv<T>::find_last(T value)
-{
-    for (int i = _size; i >= 0; i--)
-    {
-        if (_data[i] == value)
-        {
+size_t DMassiv<T>::find_last(T value) {
+    for (int i = _size; i >= 0; i--) {
+        if (_data[i] == value) {
             return i;
         }
     }

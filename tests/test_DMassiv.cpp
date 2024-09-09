@@ -11,4 +11,4 @@ TEST(libDMassiv, CheckingConstructorZero) {
     ASSERT_NO_THROW(t);
 }
 
-//TEST(libDMassiv, )
+// TEST(libDMassiv, )

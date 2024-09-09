@@ -22,7 +22,7 @@ namespace algorithms {
         if (val_1 > val_2) { return val_1 }
         else { return val_2 }
     }
-} // namespace algorithms
+}  // namespace algorithms
 
 template <typename T>
 class DMassiv {
@@ -32,7 +32,7 @@ class DMassiv {
     size_t _size;
     size_t _deleted;
 
-public: 
+ public:
     DMassiv();
     DMassiv(const DMassiv& archive);
     DMassiv(const T* arr, size_t n);
@@ -80,7 +80,7 @@ public:
     size_t find_first(T value);
     size_t find_last(T value);
 
-private: 
+ private:
     // size_t count_value(T value);
 };
 
@@ -194,6 +194,8 @@ const T* DMassiv<T>::data() {
     return _data;
 }
 
+#include <algorithm>
+#include <utility>
 template<typename T>
 void DMassiv<T>::swap(DMassiv& archive) {
     for (int i = 0; i < algorithms::max(_size, archive._size); i++) {

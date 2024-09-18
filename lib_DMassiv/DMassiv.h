@@ -75,7 +75,7 @@ class DMassiv {
     DMassiv& remove_first(T value);
     DMassiv& remove_last(T value);
 
-    size_t& find_all(T value, size_t& count) const noexcept;
+    size_t& find_all(T value, const size_t& count) const noexcept;
     size_t find_first(T value);
     size_t find_last(T value);
 
@@ -319,7 +319,8 @@ DMassiv<T>& DMassiv<T>::remove_by_index(size_t pos) {
 template <typename T>
 DMassiv<T>& DMassiv<T>::insert(T value, size_t pos) {
     if (_size < pos) {
-        throw std::logic_error("Error in function DMassiv<>&insert(T" + value + pos + "): wrong position value.");
+        throw std::logic_error
+        ("Error in function DMassiv<>&insert(T" + value + pos + "): wrong position value.");
     }
 
     this->reserve(1);
@@ -396,7 +397,7 @@ DMassiv<T>& DMassiv<T>::remove_last(T value) {
 }
 
 template <typename T>
-size_t& DMassiv<T>::find_all(T value, size_t& count) const noexcept {
+size_t& DMassiv<T>::find_all(T value, const size_t& count) const noexcept {
     size_t* find_values;
     size_t _count = 0;
     for (int i = 0; i < _size; i++) {

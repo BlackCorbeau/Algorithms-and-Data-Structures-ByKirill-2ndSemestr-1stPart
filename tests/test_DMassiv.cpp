@@ -47,4 +47,21 @@ TEST(libDMassiv, CheckingConstructorCopy) {
         EXPECT_EQ(b[i], a[i]);
     }
 }
+
+TEST(libDMassiv, CheckingConstructorInitializationWithSameElements) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = 1;
+    }    
+
+    DMassiv t(5, 1);
+
+    ASSERT_NO_THROW(t);
+    const int* a = t.data();
+    for (int i = 0; i < size; i++) {
+        EXPECT_EQ(a[i], arr[i]);
+    }
+}
 // TEST(libDMassiv, )

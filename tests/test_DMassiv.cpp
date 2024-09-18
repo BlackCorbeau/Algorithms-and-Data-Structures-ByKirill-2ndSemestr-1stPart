@@ -128,4 +128,28 @@ TEST(libDMassiv, CheckingGetterData) {
         EXPECT_EQ(a[i], arr[i]);
     }
 }
+
+TEST(libDMassiv, CheckingSwapF) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+    DMassiv<int> t1(5, 7);
+
+    ASSERT_NO_THROW(t);
+    ASSERT_NO_THROW(t1);
+
+    t.swap(t1);
+
+    const int* a = t.data();
+    const int* b = t1.data();
+    for (int i = 0; i < size; i++) {
+        EXPECT_EQ(a[i], 7);
+        EXPECT_EQ(b[i], arr[i]);
+    }
+}
 // TEST(libDMassiv, )

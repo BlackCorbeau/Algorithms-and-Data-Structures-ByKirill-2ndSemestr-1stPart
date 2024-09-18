@@ -153,15 +153,14 @@ TEST(libDMassiv, CheckingSwapF) {
     }
 }
 
-TEST(libDMassiv, CheckingClearF) { // fix
-
+TEST(libDMassiv, CheckingClearF) {
     DMassiv<int> t(5, 1);
 
     ASSERT_NO_THROW(t.clear());
 
     EXPECT_EQ(t.size(), 0);
-    EXPECT_EQ(t.capacity(), 15); 
-    EXPECT_EQ(t.data(), nullptr);  
+    EXPECT_EQ(t.capacity(), 15);
+    EXPECT_EQ(t.data(), nullptr);
 }
 
 // TEST(libDMassiv, CheckingReserveF)

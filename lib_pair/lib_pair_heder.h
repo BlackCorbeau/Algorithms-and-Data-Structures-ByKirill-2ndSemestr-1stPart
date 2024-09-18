@@ -36,7 +36,7 @@ class TPair {
     friend std::ostream& operator<<<T1, T2>\
         (std::ostream& out, const TPair<T1, T2>& pair) noexcept;
     friend std::istream& operator>><T1, T2>\
-        (std::istream& input, TPair<T1, T2>& pair) noexcept;
+        (std::istream& input, const TPair<T1, T2>& pair) noexcept;
 };
 
 template <class T1, class T2>

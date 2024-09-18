@@ -64,4 +64,23 @@ TEST(libDMassiv, CheckingConstructorInitializationWithSameElements) {
         EXPECT_EQ(a[i], arr[i]);
     }
 }
+
+TEST(libDMassiv, CheckingConstructorInitializationWithNotAllElements) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+    DMassiv<int> t1(t, 1, 2);
+
+    ASSERT_NO_THROW(t1);
+    const int* a = t.data();
+    const int* b = t1.data();
+    for (int i = 1; i < 3; i++) {
+        EXPECT_EQ(b[i - 1], a[i]);
+    }
+}
 // TEST(libDMassiv, )

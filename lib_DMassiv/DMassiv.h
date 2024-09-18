@@ -208,6 +208,7 @@ void DMassiv<T>::clear() {
     _data = nullptr;
     _states = nullptr;
     _size = 0;
+    _deleted = 0;
     _capacity = STEP_CAPACITY;
 }
 

@@ -163,4 +163,12 @@ TEST(libDMassiv, CheckingClearF) {
     EXPECT_EQ(t.data(), nullptr);
 }
 
+TEST(libDMassiv, CheckingMethodResolve) {
+    DMassiv<int> t(15, 1);
+
+    t.reserve(5);
+
+    EXPECT_EQ(t.capacity(), 30);
+}
+
 // TEST(libDMassiv, CheckingReserveF)

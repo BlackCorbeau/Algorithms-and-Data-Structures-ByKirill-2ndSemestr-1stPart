@@ -11,4 +11,40 @@ TEST(libDMassiv, CheckingConstructorZero) {
     ASSERT_NO_THROW(t);
 }
 
+
+TEST(libDMassiv, CheckingConstructorInitial){
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+
+    ASSERT_NO_THROW(t);
+    const int* a = t.data();
+    for (int i = 0; i < size; i++ ) {
+        EXPECT_EQ(a[i], arr[i]);
+    }
+}
+
+TEST(libDMassiv, CheckingConstructorCopy) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+    DMassiv<int> t1(t);
+
+    ASSERT_NO_THROW(t1);
+    const int* a = t.data();
+    const int* b = t1.data();
+    for (int i = 0; i < size; i++ ) {
+        EXPECT_EQ(b[i], a[i]);
+    }
+}
 // TEST(libDMassiv, )

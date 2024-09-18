@@ -11,7 +11,7 @@ template <class T1, class T2> class TPair;
 template <class T1, class T2>
 std::ostream& operator<<(std::ostream& out, const TPair<T1, T2>& obj) noexcept;
 template <class T1, class T2>
-std::istream& operator>>(std::istream& input, const TPair<T1, T2>& obj)\
+std::istream& operator>>(std::istream& input, TPair<T1, T2>& obj)\
 noexcept;
 
 template <class T1, class T2>
@@ -36,7 +36,7 @@ class TPair {
     friend std::ostream& operator<<<T1, T2>\
         (std::ostream& out, const TPair<T1, T2>& pair) noexcept;
     friend std::istream& operator>><T1, T2>\
-        (std::istream& input, const TPair<T1, T2>& pair) noexcept;
+        (std::istream& input, TPair<T1, T2>& pair) noexcept;
 };
 
 template <class T1, class T2>
@@ -67,19 +67,19 @@ TPair<T1, T2>& TPair<T1, T2>::operator=(const TPair<T1, T2>& pair) noexcept {
     }
     return *this;
 }
-
+/*
 template <class T1, class T2>
-std::ostream& operator<< <T1, T2>\
+std::ostream& operator<< <T1, T2>
 (std::ostream& out, const TPair<T1, T2>& pair) noexcept {
-    out << pair.to_string();
+    out << pair._first << " " << pair._second;
     return out;
 }
 
 template <class T1, class T2>
-std::istream& operator>> <T1, T2>\
-(std::istream& input, const TPair<T1, T2>& pair) noexcept {
-    input >> pair.set_first() >> pair.set_second();
+std::istream& operator>> <T1, T2>
+(std::istream& input, TPair<T1, T2>& pair) noexcept {
+    input >> pair._first >> pair._second;
     return input;
 }
-
+*/
 #endif  // LIB_PAIR_LIB_PAIR_HEDER_H_

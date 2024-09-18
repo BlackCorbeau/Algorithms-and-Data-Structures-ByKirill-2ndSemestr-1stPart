@@ -83,4 +83,18 @@ TEST(libDMassiv, CheckingConstructorInitializationWithNotAllElements) {
         EXPECT_EQ(b[i - 1], a[i]);
     }
 }
+
+TEST(libDMassiv, CheckingGetterSize) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+
+    ASSERT_NO_THROW(t);
+    EXPECT_EQ(t.size(), 5);
+}
 // TEST(libDMassiv, )

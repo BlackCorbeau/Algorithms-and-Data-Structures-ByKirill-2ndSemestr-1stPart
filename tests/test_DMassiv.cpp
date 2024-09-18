@@ -111,4 +111,21 @@ TEST(libDMassiv, CheckingGetterCapacity) {
     ASSERT_NO_THROW(t);
     EXPECT_EQ(t.capacity(), 15);
 }
+
+TEST(libDMassiv, CheckingGetterData) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+
+    ASSERT_NO_THROW(t);
+    const int* a = t.data();
+    for (int i = 0; i < size; i++) {
+        EXPECT_EQ(a[i], arr[i]);
+    }
+}
 // TEST(libDMassiv, )

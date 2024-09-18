@@ -75,7 +75,7 @@ class DMassiv {
     DMassiv& remove_first(T value);
     DMassiv& remove_last(T value);
 
-    size_t& find_all(T value, size_t& count) noexcept;
+    size_t& find_all(T value, size_t& count) const noexcept;
     size_t find_first(T value);
     size_t find_last(T value);
 
@@ -396,7 +396,7 @@ DMassiv<T>& DMassiv<T>::remove_last(T value) {
 }
 
 template <typename T>
-size_t& DMassiv<T>::find_all(T value, size_t& count) noexcept {
+size_t& DMassiv<T>::find_all(T value, size_t& count) const noexcept {
     size_t* find_values;
     size_t _count = 0;
     for (int i = 0; i < _size; i++) {

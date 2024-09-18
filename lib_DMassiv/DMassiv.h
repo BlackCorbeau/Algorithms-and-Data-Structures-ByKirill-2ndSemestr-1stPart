@@ -205,8 +205,8 @@ void DMassiv<T>::swap(DMassiv& archive) {
 
 template<typename T>
 void DMassiv<T>::clear() {
-    delete[] _data;
-    delete[] _states;
+    _data = nullptr;
+    _states = nullptr;
     _size = 0;
     _capacity = STEP_CAPACITY;
 }

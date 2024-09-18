@@ -54,7 +54,7 @@ TEST(libDMassiv, CheckingConstructorInitializationWithSameElements) {
     arr = new int[size];
     for (int i = 0; i < 5; i++) {
         arr[i] = 1;
-    }    
+    }
 
     DMassiv t(5, 1);
 

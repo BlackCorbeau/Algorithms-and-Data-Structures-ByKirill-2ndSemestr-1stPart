@@ -184,4 +184,17 @@ TEST(libDMassiv, CheckingMethodResize) {
         EXPECT_EQ(a[i], ans[i]);
     }
 }
+
+TEST(libDMassiv, CheckingAssignMethod) {
+    DMassiv<int> t(15, 1);
+    DMassiv<int> t1(5, 4);
+
+    int ans[5] = {4, 4, 4, 4, 4};
+
+    ASSERT_NO_THROW(t.assign(t1)); 
+    const int* a = t.data();
+    for (int i = 0; i < 5; i++) {
+        EXPECT_EQ(a[i], ans[i]);
+    }
+}
 // TEST(libDMassiv, CheckingReserveF)

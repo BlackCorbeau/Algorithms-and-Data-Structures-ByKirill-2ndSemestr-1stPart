@@ -33,9 +33,10 @@ int main() {
       std::cerr << err.what() << std::endl;
   }
 
-  DMassiv<int> t(10, 5);
+  DMassiv<int> t(5, 1);
+  DMassiv<int> t1(5, 4);
 
-  t.resize(2, 3);
+  t.assign(t1);
 
   t.print();
 

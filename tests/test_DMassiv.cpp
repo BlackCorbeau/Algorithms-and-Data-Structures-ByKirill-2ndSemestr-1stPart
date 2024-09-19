@@ -282,4 +282,12 @@ TEST(libDMassiv, checkingMethodInsert2) {
         EXPECT_EQ(b[i], 4);
     }
 }
+
+TEST(libDMassiv, checkingMethodReplace) {
+    DMassiv<int> t(15, 1);
+
+    ASSERT_NO_THROW(t.replace(2, 2));
+    const int* a = t.data();
+    EXPECT_EQ(a[2], 2);
+}
 // TEST(libDMassiv, CheckingReserveF)

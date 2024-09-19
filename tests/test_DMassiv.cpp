@@ -245,7 +245,7 @@ TEST(libDMassiv, CheckingMethodRemoveByIndex) {
     ASSERT_NO_THROW(t.remove_by_index(2));
     int a = t.size();
     const int* _a = t.data();
-    EXPECT_EQ(a, 4);EXPECT_EQ(a, 4);
+    EXPECT_EQ(a, 4);
     EXPECT_EQ(_a[0], 4);
 }
 // TEST(libDMassiv, CheckingReserveF)

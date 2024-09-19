@@ -403,7 +403,7 @@ DMassiv<T>& DMassiv<T>::remove_last(T value) {
     for (int i = _size - 1, j = 0; j < value; i--, j++) {
         _states[i] = State::deleted;
     }
-    _size-=1; 
+    _size -= 1;
     return *this;
 }
 

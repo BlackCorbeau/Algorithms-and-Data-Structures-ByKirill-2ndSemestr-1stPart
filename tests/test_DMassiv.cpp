@@ -320,4 +320,21 @@ TEST(libDMassiv, checkingRemooveAllMethod) {
     ASSERT_NO_THROW(t.remove_all(4));
     EXPECT_EQ(t.size(), 6-2);
 }
+
+TEST(libDMassiv, checkingRemoveFirstMethod) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+    t.push_back(2);
+
+    ASSERT_NO_THROW(t.remove_first(2));
+    const int* a = t.data();
+    EXPECT_EQ(t.size(), 6-1);
+    EXPECT_EQ(a[5], 2);
+}
 // TEST(libDMassiv, CheckingReserveF)

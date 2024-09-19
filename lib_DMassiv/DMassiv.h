@@ -392,7 +392,9 @@ template <typename T>
 DMassiv<T>& DMassiv<T>::remove_first(T value) {
     for (int i = 0; i < value; i++) {
         _states[i] = State::deleted;
+        break;
     }
+    _size -= 1;
     return *this;
 }
 

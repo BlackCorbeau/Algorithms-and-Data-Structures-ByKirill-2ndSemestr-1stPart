@@ -33,15 +33,18 @@ int main() {
       std::cerr << err.what() << std::endl;
   }
 
-  DMassiv<int> t(15, 1);
   size_t size = 5;
     int* arr;
     arr = new int[size];
     for (int i = 0; i < 5; i++) {
-        arr[i] = 4;
+        arr[i] = i;
     }
-  t.insert(arr, 2, 2);
-  t.print();
+
+    DMassiv<int> t(arr, size);
+
+    t.erase(2, 2);
+
+    std::cout << t.size();
 }
 
 #endif  // EASY_EXAMPLE

@@ -371,6 +371,7 @@ DMassiv<T>& DMassiv<T>::erase(size_t pos, size_t n) {
     for (int i = pos; i < pos + n; i++) {
         _states[i] = State::deleted;
     }
+    _size -= n;
     return *this;
 }
 

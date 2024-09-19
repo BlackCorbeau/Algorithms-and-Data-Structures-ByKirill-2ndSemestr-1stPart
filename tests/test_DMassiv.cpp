@@ -305,4 +305,19 @@ TEST(libDMassiv, checkingMethodErase) {
 
     EXPECT_EQ(t.size(), 3);
 }
+
+TEST(libDMassiv, checkingRemooveAllMethod) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+    t.push_back(4);
+
+    ASSERT_NO_THROW(t.remove_all(4));
+    EXPECT_EQ(t.size(), 6-2);
+}
 // TEST(libDMassiv, CheckingReserveF)

@@ -377,11 +377,14 @@ DMassiv<T>& DMassiv<T>::erase(size_t pos, size_t n) {
 
 template <typename T>
 DMassiv<T>& DMassiv<T>::remove_all(T value) {
+    int j = 0;
     for (int i = 0; i < _size; i++) {
         if (_data[i] == value) {
             _states[i] = State::deleted;
+            j++;
         }
     }
+    _size -= j;
     return *this;
 }
 

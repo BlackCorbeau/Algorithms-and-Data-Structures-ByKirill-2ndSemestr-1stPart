@@ -306,6 +306,7 @@ void DMassiv<T>::pop_front() {
     for (int i = 0; i < _size; i++) {
         if (_states[i] == busy) {
             _states[i] = deleted;
+            _size -= 1;
             break;
         }
     }

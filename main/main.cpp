@@ -33,7 +33,7 @@ int main() {
       std::cerr << err.what() << std::endl;
   }
 
-  DMassiv<int> t (10, 5);
+  DMassiv<int> t(10, 5);
 
   t.resize(2, 3);
 

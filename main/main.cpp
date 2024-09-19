@@ -7,6 +7,7 @@
 #include <iomanip>
 #include "../lib_easy_example/easy_example.h"
 #include "../lib_pair/lib_pair_heder.h"
+#include "../lib_DMassiv/DMassiv.h"
 
 int main() {
   int a, b;
@@ -31,6 +32,12 @@ int main() {
   } catch (std::exception err) {
       std::cerr << err.what() << std::endl;
   }
+
+  DMassiv<int> t (10, 5);
+
+  t.resize(2, 3);
+
+  t.print();
 
   return 0;
 }

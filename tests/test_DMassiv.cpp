@@ -171,4 +171,18 @@ TEST(libDMassiv, CheckingMethodResolve) {
     EXPECT_EQ(t.capacity(), 30);
 }
 
+TEST(libDMassiv, CheckingMethodResize) {
+    DMassiv<int> t (10, 5);
+
+    t.resize(2, 3);
+
+    int ans[11] = {5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 3,};
+
+    const int* a = t.data();
+
+    for (int i = 0; i < 11; i++) {
+        EXPECT_EQ(a[i], ans[i]);
+    }
+}
+
 // TEST(libDMassiv, CheckingReserveF)

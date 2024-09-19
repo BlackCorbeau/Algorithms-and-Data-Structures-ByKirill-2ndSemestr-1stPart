@@ -316,6 +316,7 @@ void DMassiv<T>::pop_front() {
 template<typename T>
 DMassiv<T>& DMassiv<T>::remove_by_index(size_t pos) {
     _states[pos] = State::deleted;
+    _size -= 1;
     return *this;
 }
 

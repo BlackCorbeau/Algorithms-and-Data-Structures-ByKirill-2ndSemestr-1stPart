@@ -231,4 +231,21 @@ TEST(libDMassiv, CheckingMethodPopFront) {
     EXPECT_EQ(a, 4);
     EXPECT_EQ(_a[0], 4);
 }
+
+TEST(libDMassiv, CheckingMethodRemoveByIndex) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+
+    ASSERT_NO_THROW(t.remove_by_index(2));
+    int a = t.size();
+    const int* _a = t.data();
+    EXPECT_EQ(a, 4);EXPECT_EQ(a, 4);
+    EXPECT_EQ(_a[0], 4);
+}
 // TEST(libDMassiv, CheckingReserveF)

@@ -191,10 +191,18 @@ TEST(libDMassiv, CheckingAssignMethod) {
 
     int ans[5] = {4, 4, 4, 4, 4};
 
-    ASSERT_NO_THROW(t.assign(t1)); 
+    ASSERT_NO_THROW(t.assign(t1));
     const int* a = t.data();
     for (int i = 0; i < 5; i++) {
         EXPECT_EQ(a[i], ans[i]);
     }
+}
+
+TEST(libDMassiv, CheckingMethodPushBack) {
+    DMassiv<int> t(5, 4);
+
+    ASSERT_NO_THROW(t.push_back(5));
+    const int* a = t.data();
+    EXPECT_EQ(a[5], 5); 
 }
 // TEST(libDMassiv, CheckingReserveF)

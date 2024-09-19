@@ -354,4 +354,21 @@ TEST(libDMassiv, CheckingMethodRemoveLast) {
     EXPECT_EQ(t.size(), 6-1);
     EXPECT_EQ(a[0], 2);
 }
+
+
+TEST(libDMassiv, CheckingMethodFindFirst) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+    t.push_front(2);
+
+    ASSERT_NO_THROW(t.find_first(2));
+    size_t a = t.find_first(2);
+    EXPECT_EQ(a, 0);
+}
 // TEST(libDMassiv, CheckingReserveF)

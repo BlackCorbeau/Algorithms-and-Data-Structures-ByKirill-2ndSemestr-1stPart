@@ -324,8 +324,7 @@ template <typename T>
 DMassiv<T>& DMassiv<T>::insert(T value, size_t pos) {
     if (_size < pos) {
         throw std::logic_error
-        ("Error in function DMassiv<>&insert(T"
-        + value + pos + "): wrong position value.");
+        ("Error in function DMassiv<>&insert(T): wrong position value.");
     }
 
     this->reserve(1);

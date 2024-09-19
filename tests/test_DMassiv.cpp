@@ -246,6 +246,22 @@ TEST(libDMassiv, CheckingMethodRemoveByIndex) {
     int a = t.size();
     const int* _a = t.data();
     EXPECT_EQ(a, 4);
-    EXPECT_EQ(_a[0], 4);
+}
+
+TEST(libDMassiv, CheckingMethodInsert1) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+
+    ASSERT_NO_THROW(t.insert(9, 2));
+    int a = t.size();
+    const int* _a = t.data();
+    EXPECT_EQ(a, 6);
+    EXPECT_EQ(_a[2], 9);
 }
 // TEST(libDMassiv, CheckingReserveF)

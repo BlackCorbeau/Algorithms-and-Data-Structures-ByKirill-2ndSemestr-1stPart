@@ -203,6 +203,14 @@ TEST(libDMassiv, CheckingMethodPushBack) {
 
     ASSERT_NO_THROW(t.push_back(5));
     const int* a = t.data();
-    EXPECT_EQ(a[5], 5); 
+    EXPECT_EQ(a[5], 5);
+}
+
+TEST(libDMassiv, CheckingMethodPopBack) {
+    DMassiv<int> t(5, 4);
+
+    ASSERT_NO_THROW(t.pop_back());
+    int a = t.size();
+    EXPECT_EQ(a, 4);
 }
 // TEST(libDMassiv, CheckingReserveF)

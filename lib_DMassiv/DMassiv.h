@@ -288,6 +288,7 @@ void DMassiv<T>::push_back(T value) {
 template<typename T>
 void DMassiv<T>::pop_back() {
     _states[_size - 1] = State::empty;
+    _size -= 1;
 }
 
 template<typename T>

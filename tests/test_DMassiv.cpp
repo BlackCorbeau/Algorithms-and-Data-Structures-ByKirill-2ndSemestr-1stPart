@@ -337,4 +337,21 @@ TEST(libDMassiv, checkingRemoveFirstMethod) {
     EXPECT_EQ(t.size(), 6-1);
     EXPECT_EQ(a[5], 2);
 }
+
+TEST(libDMassiv, CheckingMethodRemoveLast) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+    t.push_front(2);
+
+    ASSERT_NO_THROW(t.remove_last(2));
+    const int* a = t.data();
+    EXPECT_EQ(t.size(), 6-1);
+    EXPECT_EQ(a[0], 2);
+}
 // TEST(libDMassiv, CheckingReserveF)

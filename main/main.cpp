@@ -33,14 +33,15 @@ int main() {
       std::cerr << err.what() << std::endl;
   }
 
-  DMassiv<int> t(5, 1);
-  DMassiv<int> t1(5, 4);
-
-  t.assign(t1);
-
+  DMassiv<int> t(15, 1);
+  size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = 4;
+    }
+  t.insert(arr, 2, 2);
   t.print();
-
-  return 0;
 }
 
 #endif  // EASY_EXAMPLE

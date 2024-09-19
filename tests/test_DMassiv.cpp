@@ -264,4 +264,22 @@ TEST(libDMassiv, CheckingMethodInsert1) {
     EXPECT_EQ(a, 6);
     EXPECT_EQ(_a[2], 9);
 }
+
+TEST(libDMassiv, checkingMethodInsert2) {
+    DMassiv<int> t(15, 1);
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = 4;
+    }
+
+    ASSERT_NO_THROW(t.insert(arr, 2, 2));
+    const int* b = t.data();
+    int c = t.size();
+    EXPECT_EQ(c, 17);
+    for (int i = 2; i < 4; i++) {
+        EXPECT_EQ(b[i], 4);
+    }
+}
 // TEST(libDMassiv, CheckingReserveF)

@@ -387,4 +387,3 @@ TEST(libDMassiv, CheckingMethodFindLast) {
     size_t a = t.find_last(2);
     EXPECT_EQ(a, 5);
 }
-// TEST(libDMassiv, CheckingReserveF)

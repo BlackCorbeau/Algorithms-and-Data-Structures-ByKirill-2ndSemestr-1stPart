@@ -45,9 +45,9 @@ class DMassiv {
     inline bool empty() const noexcept;
     inline bool full() const noexcept;
 
-    size_t size();
+    size_t size() const;
     size_t capacity();
-    const T* data();
+    const T* data() const;
 
     void swap(DMassiv& archive);
 
@@ -180,7 +180,7 @@ inline bool DMassiv<T>::full() const noexcept {
 }
 
 template<typename T>
-size_t DMassiv<T>::size() {
+size_t DMassiv<T>::size() const {
     return _size;
 }
 template<typename T>
@@ -189,7 +189,7 @@ size_t DMassiv<T>::capacity() {
 }
 
 template<typename T>
-const T* DMassiv<T>::data() {
+const T* DMassiv<T>::data() const {
     return _data;
 }
 

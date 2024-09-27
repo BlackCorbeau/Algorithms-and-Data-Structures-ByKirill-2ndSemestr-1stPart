@@ -1,9 +1,8 @@
 // Copyright 2024 Kirill Remizov
-
+#pragma once
 #ifndef LIB_STACK_LIB_STACK_HEDER_H_
 #define LIB_STACK_LIB_STACK_HEDER_H_
 
-#pragma once
 #include<iostream>
 #include "../lib_DMassiv/DMassiv.h"
 

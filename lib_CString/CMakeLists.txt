@@ -1,0 +1,2 @@
+create_project_lib(CString)
+add_depend(CString Algoritms lib_algoritms)

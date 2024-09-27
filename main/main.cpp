@@ -8,6 +8,8 @@
 #include "../lib_easy_example/easy_example.h"
 #include "../lib_pair/lib_pair_heder.h"
 #include "../lib_DMassiv/DMassiv.h"
+#include "../lib_CString/CString.h"
+#include "../lib_Parser/Parser.h"
 
 int main() {
   int a, b;
@@ -33,18 +35,12 @@ int main() {
       std::cerr << err.what() << std::endl;
   }
 
-  size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
+    char _a[16] = "(5*8) / (2+3)";
+    
+    CString ex(_a);
 
-    DMassiv<int> t(arr, size);
-
-    t.erase(2, 2);
-
-    std::cout << t.size();
+    bool _ans =  is_correct(&ex);
+    std::cout << _ans << "\n";
 }
 
 #endif  // EASY_EXAMPLE

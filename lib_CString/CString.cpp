@@ -231,7 +231,8 @@ int CString::compare(size_t pos, size_t len, const CString& str) const {
     }
 }
 int CString::compare
-(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) const {
+(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) 
+const {
     if (len > sublen) return 1;
     else if (len < sublen) return -1;
     else {

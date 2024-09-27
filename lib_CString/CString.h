@@ -53,7 +53,7 @@ class CString {
 
     int compare(const CString& str) const noexcept;
     int compare(size_t pos, size_t len, const CString& str) const;
-    int compare(size_t pos, 
+    int compare(size_t pos,
     size_t len, const CString& str, size_t subpos, size_t sublen) const;
     int compare(const char* s) const;
     int compare(size_t pos, size_t len, const char* s) const;

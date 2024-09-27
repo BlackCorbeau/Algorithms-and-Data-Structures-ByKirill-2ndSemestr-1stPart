@@ -3,7 +3,7 @@
 #ifndef LIB_ALGORITMS_ALGORITMS_H_
 #define LIB_ALGORITMS_ALGORITMS_H_
 
-// namespace algorithms
+
 namespace algorithms {
     template<typename T>
     void swap(T& val_1, T& val_2) {
@@ -27,6 +27,6 @@ namespace algorithms {
             return val_2;
         }
     }
-}
+} // namespace algorithms
 
 #endif  // LIB_ALGORITMS_ALGORITMS_H_

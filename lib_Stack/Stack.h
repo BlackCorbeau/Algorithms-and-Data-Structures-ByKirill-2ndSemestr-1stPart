@@ -8,10 +8,10 @@
 
 template <typename T>
 class Stack {
-private:
+ private:
     DMassiv<T> _data;
 
-public:
+ public:
     Stack() {}
 
     ~Stack() {}

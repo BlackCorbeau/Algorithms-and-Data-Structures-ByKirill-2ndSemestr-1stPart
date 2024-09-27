@@ -1,3 +1,5 @@
+// Copyright 2024 Kirill Remizov
+
 #pragma once
 #ifndef LIB_PARSER_LIB_PARSER_HEDER_H_
 #define LIB_PARSER_LIB_PARSER_HEDER_H_

@@ -36,7 +36,7 @@ int main() {
   }
 
     char _a[16] = "(5*8) / (2+3)";
-    
+
     CString ex(_a);
 
     bool _ans =  is_correct(&ex);

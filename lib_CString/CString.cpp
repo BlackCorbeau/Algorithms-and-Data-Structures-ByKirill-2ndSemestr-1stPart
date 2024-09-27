@@ -20,7 +20,7 @@ CString::CString(const CString& str) {
     _data[_size] = '\0';
 }
 
-CString::CString(const char* c_str) {
+explicit CString::CString(const char* c_str) {
     _size = 0;
     while (c_str[_size] != '\0') {
         _size++;
@@ -205,7 +205,8 @@ CString& CString::assign(size_t n, char c) {
 
 int CString::compare(const CString& str) const noexcept {
     if (this->_size > str._size) return 1;
-    else if (this->_size < str._size) return -1; else {
+    else if (this->_size < str._size) return -1;
+    else {
         for (size_t i = 0; i < algorithms::min(_size, str._size); i++) {
             if (this->_data[i] < str._data[i]) {
                 return -1;
@@ -220,7 +221,8 @@ int CString::compare(const CString& str) const noexcept {
 
 int CString::compare(size_t pos, size_t len, const CString& str) const {
     if (len > str._size) return 1;
-    else if (len < str._size) return -1; else {
+    else if (len < str._size) return -1;
+    else {
         for (size_t i = 0; i < algorithms::min(len, str._size); i++) {
             if (this->_data[i + pos] < str._data[i]) return -1;
             else if (this->_data[i + pos] > str._data[i]) return 1;
@@ -231,7 +233,8 @@ int CString::compare(size_t pos, size_t len, const CString& str) const {
 int CString::compare
 (size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) const {
     if (len > sublen) return 1;
-    else if (len < sublen) return -1; else {
+    else if (len < sublen) return -1;
+    else {
         for (size_t i = 0; i < algorithms::min(len, sublen); i++) {
             if (this->_data[i + pos] < str._data[i + subpos]) return -1;
             else if (this->_data[i + pos] > str._data[i + subpos]) return 1;
@@ -246,7 +249,8 @@ int CString::compare(const char* s) const {
         len++;
     }
     if (_size > len) return 1;
-    else if (_size < len) return -1; else {
+    else if (_size < len) return -1;
+    else {
         for (size_t i = 0; i < algorithms::min(_size, len); i++) {
             if (this->_data[i] < s[i]) return -1;
             else if (this->_data[i] > s[i]) return 1;
@@ -261,7 +265,8 @@ int CString::compare(size_t pos, size_t len, const char* s) const {
         _len++;
     }
     if (len > _len) return 1;
-    else if (len < _len) return -1; else {
+    else if (len < _len) return -1;
+    else {
         for (size_t i = 0; i < algorithms::min(len, _len); i++) {
             if (this->_data[i + pos] < s[i]) return -1;
             else if (this->_data[i + pos] > s[i]) return 1;
@@ -276,7 +281,8 @@ int CString::compare(size_t pos, size_t len, const char* s, size_t n) const {
         _len++;
     }
     if (len > _len) return 1;
-    else if (len < _len) return -1; else {
+    else if (len < _len) return -1;
+    else {
         for (size_t i = 0; i < algorithms::min(len, _len); i++) {
             if (this->_data[i + pos] < s[i + n]) return -1;
             else if (this->_data[i + pos] > s[i + n]) return 1;
@@ -303,7 +309,6 @@ void CString::reserve(size_t n) {
     delete[] _data;
     _data = new_data;
     _data[_size] = '\0';
-
 }
 
 void CString::resize(size_t n) {
@@ -325,7 +330,7 @@ void CString::update(const size_t __size) {
     char* new_data;
     new_data = new char[_capacity];
     for (int i = 0; i < _size; i++) {
-        new_data[i] = _data[i]; 
+        new_data[i] = _data[i];
     }
     delete[] _data;
     _size = __size;
@@ -338,8 +343,8 @@ void CString::update(const size_t __size) {
 
 void CString::pop_back() {
     if (this->empty()) {
-        throw std::logic_error("Error in function \
-                  \"void pop_back()\": source CString is empty");
+        throw std::logic_error
+        ("Error in function pop_back(): source CString is empty");
     }
     _data[--_size] = '\0';
 }
@@ -349,12 +354,11 @@ CString& CString::erase(size_t pos, size_t len) {
     new_data = new char[_capacity];
     int i = 0;
     int i1 = 0;
-    while(i1 <= _size) {
+    while (i1 <= _size) {
         if (i1 < pos) {
             new_data[i] = _data[i];
             i++;
-        }
-        else if (i1 > pos + len) {
+        } else if (i1 > pos + len) {
             new_data[i] = _data[i + len];
             i++;
         }
@@ -452,7 +456,8 @@ CString& CString::insert(size_t pos, const CString& str)  {
     return *this;
 }
 
-CString& CString::insert(size_t pos, const CString& str, size_t subpos, size_t sublen)  {
+CString& CString::insert
+(size_t pos, const CString& str, size_t subpos, size_t sublen)  {
     this->reserve(sublen);
     int counter = 0;
     for (int i = _size-1; i >= pos; i--) {
@@ -510,7 +515,7 @@ CString& CString::insert(size_t pos, const char* s, size_t n) {
 
 CString& CString::insert(size_t pos, size_t n, char c)  {
     this->reserve(n);
-    
+
     for (int i = _size - 1; i >= pos; i--) {
         _data[i + n] = _data[i];
     }
@@ -542,7 +547,8 @@ CString& CString::replace(size_t pos, size_t len, const CString& str) {
     return *this;
 }
 
-CString& CString::replace(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) {
+CString& CString::replace
+(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) {
     this->reserve(sublen);
     char* new_data;
     new_data = new char[_capacity];
@@ -572,8 +578,7 @@ CString& CString::replace(size_t pos, size_t len, const char* s, size_t n)  {
     for (int i = _size -1; i >= pos; i--) {
         if (i >= pos && i < pos + len) {
             continue;
-        }
-        else {
+        } else {
             _data[i - len + sublen] = _data[i];
         }
     }
@@ -616,8 +621,7 @@ size_t CString::find(const CString& str) const {
                     return pos + 1;
                 }
                 continue;
-            }
-            else {
+            } else {
                 pos = -1;
                 break;
             }

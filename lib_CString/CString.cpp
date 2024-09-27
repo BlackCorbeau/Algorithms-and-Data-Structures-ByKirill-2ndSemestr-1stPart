@@ -10,7 +10,7 @@ CString::CString() {
     _data[0] = '\0';
 }
 
-CString::CString(const CString& str) { 
+CString::CString(const CString& str) {
     _size = str._size;
     _capacity = str._capacity;
     _data = new char[_capacity];
@@ -22,14 +22,12 @@ CString::CString(const CString& str) {
 
 CString::CString(const char* c_str) {
     _size = 0;
-    while (c_str[_size] != '\0')
-    {
+    while (c_str[_size] != '\0') {
         _size++;
     }
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _data = new char[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         _data[i] = c_str[i];
     }
     _data[_size] = '\0';
@@ -39,8 +37,7 @@ CString::CString(const char* c_str, size_t n) {
     _size = n;
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _data = new char[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         _data[i] = c_str[i];
     }
     _data[_size] = '\0';
@@ -50,8 +47,7 @@ CString::CString(size_t n, char c) {
     _size = n;
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _data = new char[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         _data[i] = c;
     }
     _data[_size] = '\0';
@@ -61,8 +57,7 @@ CString::CString(const CString& str, size_t pos, size_t len) {
     _size = len;
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _data = new char[_capacity];
-    for (int i = 0; i < len; i++)
-    {
+    for (int i = 0; i < len; i++) {
         _data[i] = str._data[i + pos];
     }
     _data[len] = '\0';
@@ -83,8 +78,7 @@ bool CString::full() const noexcept {
 
 void CString::print() const noexcept {
     size_t i = 0;
-    while (_data[i] != '\0')
-    {
+    while (_data[i] != '\0') {
         std::cout << _data[i];
         i++;
     }
@@ -119,8 +113,7 @@ const char* CString::data() const {
     return _data;
 }
 void CString::swap(CString& str) {
-    for (int i = 0; i < _size; i ++)
-    {
+    for (int i = 0; i < _size; i ++) {
         algorithms::swap(_data[i], str._data[i]);
     }
     _data[_size] = '\0';
@@ -128,15 +121,13 @@ void CString::swap(CString& str) {
 }
 
 CString CString::substr(size_t pos, size_t len) const {
-    if (pos > _size || len > _size - pos)
-    {
+    if (pos > _size || len > _size - pos) {
         throw std::out_of_range("Invalid substring parameters");
     }
 
     size_t new_size = len + 1;
     char* new_data = new char[new_size];
-    for (size_t i = 0; i < len; i++)
-    {
+    for (size_t i = 0; i < len; i++) {
         new_data[i] = _data[i + pos];
     }
     new_data[len] = '\0';
@@ -148,14 +139,12 @@ CString CString::substr(size_t pos, size_t len) const {
 CString& CString::assign(const CString& str) {
     _size = 0;
     delete _data;
-    while (str._data[_size] != '\0')
-    {
+    while (str._data[_size] != '\0') {
         _size++;
     }
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _data = new char[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         _data[i] = str._data[i];
     }
     _data[_size] = '\0';
@@ -167,8 +156,7 @@ CString& CString::assign(const CString& str, size_t pos, size_t len) {
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     delete _data;
     _data = new char[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         _data[i] = str._data[i+pos];
     }
     _data[_size] = '\0';
@@ -177,14 +165,12 @@ CString& CString::assign(const CString& str, size_t pos, size_t len) {
 CString& CString::assign(const char* s) {
     _size = 0;
     delete _data;
-    while (s[_size] != '\0')
-    {
+    while (s[_size] != '\0') {
         _size++;
     }
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _data = new char[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         _data[i] = s[i];
     }
     _data[_size] = '\0';
@@ -194,14 +180,12 @@ CString& CString::assign(const char* s) {
 CString& CString::assign(const char* s, size_t n) {
     _size = 0;
     delete _data;
-    while (s[_size] != '\0')
-    {
+    while (s[_size] != '\0') {
         _size++;
     }
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _data = new char[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++) {
         _data[i] = s[i+n];
     }
     _data[_size] = '\0';
@@ -212,8 +196,7 @@ CString& CString::assign(size_t n, char c) {
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     delete _data;
     _data = new char[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
+    for (int i = 0; i < _size; i++){
         _data[i] = c;
     }
     _data[_size] = '\0';
@@ -240,8 +223,7 @@ int CString::compare(size_t pos, size_t len, const CString& str) const {
     if(len > str._size) return 1;
     else if (len < str._size) return -1;
     else {
-        for (size_t i = 0; i < algorithms::min(len, str._size); i++)
-        {
+        for (size_t i = 0; i < algorithms::min(len, str._size); i++) {
             if (this->_data[i + pos] < str._data[i]) return -1;
             else if (this->_data[i + pos] > str._data[i]) return 1;
         }
@@ -251,10 +233,8 @@ int CString::compare(size_t pos, size_t len, const CString& str) const {
 int CString::compare(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) const {
     if (len > sublen) return 1;
     else if (len < sublen) return -1;
-    else 
-    {
-        for (size_t i = 0; i < algorithms::min(len, sublen); i++)
-        {
+    else {
+        for (size_t i = 0; i < algorithms::min(len, sublen); i++) {
             if (this->_data[i + pos] < str._data[i + subpos]) return -1;
             else if (this->_data[i + pos] > str._data[i + subpos]) return 1;
         }
@@ -264,16 +244,13 @@ int CString::compare(size_t pos, size_t len, const CString& str, size_t subpos, 
 
 int CString::compare(const char* s) const {
     size_t len = 0;
-    while (s[len] != '\0')
-    {
+    while (s[len] != '\0') {
         len++;
     }
     if (_size > len) return 1;
     else if (_size < len) return -1;
-    else
-    {
-        for (size_t i = 0; i < algorithms::min(_size, len); i++)
-        {
+    else {
+        for (size_t i = 0; i < algorithms::min(_size, len); i++) {
             if (this->_data[i] < s[i]) return -1;
             else if (this->_data[i] > s[i]) return 1;
         }

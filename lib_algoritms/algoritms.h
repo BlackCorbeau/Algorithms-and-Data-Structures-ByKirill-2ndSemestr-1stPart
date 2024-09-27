@@ -27,6 +27,6 @@ namespace algorithms {
             return val_2;
         }
     }
-} // namespace algorithms
+}  // namespace algorithms
 
 #endif  // LIB_ALGORITMS_ALGORITMS_H_

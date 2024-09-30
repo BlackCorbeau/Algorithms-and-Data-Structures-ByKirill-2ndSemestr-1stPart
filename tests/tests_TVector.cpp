@@ -1,3 +1,5 @@
+// Copyright 2024 Kirill Remizov
+
 #include <gtest.h>
 #include "../lib_TVector/TVector.h"
 

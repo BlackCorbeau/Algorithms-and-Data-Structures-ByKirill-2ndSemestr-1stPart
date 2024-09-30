@@ -8,10 +8,10 @@
 
 template <typename T>
 class TVector {
-private:
+ private:
     DMassiv<T> _data;
 
-public:
+ public:
     TVector();
     TVector(const TVector& other);
     TVector(const T* arr, size_t n);

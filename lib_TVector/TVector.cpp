@@ -1,3 +1,3 @@
 // Copyright 2024 Kirill Remizov
 
-#include "./TVector.h"
+#include "../lib_TVector/TVector.h"

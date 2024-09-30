@@ -17,6 +17,7 @@ add_subdirectory(lib_Stack)
 add_subdirectory(lib_Parser)
 add_subdirectory(lib_CString)
 add_subdirectory(lib_algoritms)
+add_subdirectory(lib_TVector)
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)

@@ -23,7 +23,7 @@ class CString {
  public:
     CString();
     CString(const CString& str);
-    explicit CString(const char* c_str);
+    CString(const char* c_str);
     CString(const char* c_str, size_t n);
     CString(size_t n, char c);
     CString(const CString& str, size_t pos, size_t len);

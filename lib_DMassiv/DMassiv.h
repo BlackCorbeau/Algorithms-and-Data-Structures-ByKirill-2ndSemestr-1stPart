@@ -6,6 +6,8 @@
 #pragma once
 #define STEP_CAPACITY 15
 #include <iostream>
+#include <algorithm>
+#include <utility>
 #include "../lib_algoritms/algoritms.h"
 
 enum State { empty, busy, deleted };
@@ -180,8 +182,6 @@ const T* DMassiv<T>::data() const {
     return _data;
 }
 
-#include <algorithm>
-#include <utility>
 template<typename T>
 void DMassiv<T>::swap(DMassiv& archive) {
     for (int i = 0; i < algorithms::max(_size, archive._size); i++) {

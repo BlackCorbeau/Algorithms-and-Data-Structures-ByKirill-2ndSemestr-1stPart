@@ -20,7 +20,7 @@ CString::CString(const CString& str) {
     _data[_size] = '\0';
 }
 
-explicit CString::CString(const char* c_str) {
+CString::CString(const char* c_str) {
     _size = 0;
     while (c_str[_size] != '\0') {
         _size++;
@@ -204,9 +204,11 @@ CString& CString::assign(size_t n, char c) {
 }
 
 int CString::compare(const CString& str) const noexcept {
-    if (this->_size > str._size) return 1;
-    else if (this->_size < str._size) return -1;
-    else {
+    if (this->_size > str._size) {
+        return 1;
+    } else if (this->_size < str._size) {
+        return -1;
+    } else {
         for (size_t i = 0; i < algorithms::min(_size, str._size); i++) {
             if (this->_data[i] < str._data[i]) {
                 return -1;
@@ -220,9 +222,11 @@ int CString::compare(const CString& str) const noexcept {
 }
 
 int CString::compare(size_t pos, size_t len, const CString& str) const {
-    if (len > str._size) return 1;
-    else if (len < str._size) return -1;
-    else {
+    if (len > str._size) {
+        return 1;
+    } else if (len < str._size) {
+        return -1;
+    } else {
         for (size_t i = 0; i < algorithms::min(len, str._size); i++) {
             if (this->_data[i + pos] < str._data[i]) return -1;
             else if (this->_data[i + pos] > str._data[i]) return 1;
@@ -233,12 +237,17 @@ int CString::compare(size_t pos, size_t len, const CString& str) const {
 int CString::compare
 (size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) 
 const {
-    if (len > sublen) return 1;
-    else if (len < sublen) return -1;
-    else {
+    if (len > sublen) {
+        return 1;
+    } else if (len < sublen) {
+        return -1;
+    } else {
         for (size_t i = 0; i < algorithms::min(len, sublen); i++) {
-            if (this->_data[i + pos] < str._data[i + subpos]) return -1;
-            else if (this->_data[i + pos] > str._data[i + subpos]) return 1;
+            if (this->_data[i + pos] < str._data[i + subpos]) {
+                return -1;
+            } else if (this->_data[i + pos] > str._data[i + subpos]) {
+                return 1;
+            }
         }
         return 0;
     }
@@ -249,9 +258,11 @@ int CString::compare(const char* s) const {
     while (s[len] != '\0') {
         len++;
     }
-    if (_size > len) return 1;
-    else if (_size < len) return -1;
-    else {
+    if (_size > len) {
+        return 1;
+    } else if (_size < len) {
+        return -1;
+    } else {
         for (size_t i = 0; i < algorithms::min(_size, len); i++) {
             if (this->_data[i] < s[i]) return -1;
             else if (this->_data[i] > s[i]) return 1;
@@ -265,9 +276,11 @@ int CString::compare(size_t pos, size_t len, const char* s) const {
     while (s[_len] != '\0') {
         _len++;
     }
-    if (len > _len) return 1;
-    else if (len < _len) return -1;
-    else {
+    if (len > _len) {
+        return 1;
+    } else if (len < _len) {
+        return -1;
+    } else {
         for (size_t i = 0; i < algorithms::min(len, _len); i++) {
             if (this->_data[i + pos] < s[i]) return -1;
             else if (this->_data[i + pos] > s[i]) return 1;
@@ -281,9 +294,11 @@ int CString::compare(size_t pos, size_t len, const char* s, size_t n) const {
     while (s[_len] != '\0') {
         _len++;
     }
-    if (len > _len) return 1;
-    else if (len < _len) return -1;
-    else {
+    if (len > _len) {
+        return 1;
+    } else if (len < _len) {
+        return -1;
+    } else {
         for (size_t i = 0; i < algorithms::min(len, _len); i++) {
             if (this->_data[i + pos] < s[i + n]) return -1;
             else if (this->_data[i + pos] > s[i + n]) return 1;

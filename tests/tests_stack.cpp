@@ -69,5 +69,5 @@ TEST(StackTest, Print) {
     testing::internal::CaptureStdout();
     stack.print();
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "10, 20, 30, ");
+    EXPECT_EQ(output, "10, 20, 30, \n");
 }

@@ -22,10 +22,10 @@ bool is_correct(const CString* exp) {
         return true;
     } else if (st.empty() == true &&
     (st.top() == '(' || st.top() == '[' || st.top() == '{')) {
-        std::cout << "Your string have unclosed '(' or '[' or '{'";
+        std::logic_error("Your string have unclosed '(' or '[' or '{'");
         return false;
     } else {
-        std::cout << "Your string have unclosed ')' or ']' or '}'";
+        std::logic_error("Your string have unclosed ')' or ']' or '}'");
         return false;
     }
 }

@@ -101,7 +101,7 @@ class TList {
     TNode<T>* get_head() const;
     TNode<T>* get_tail() const;
 
-    bool empty();
+    bool empty() const;
 
     void push_front(TNode<T>* val);
     void push_back(TNode<T>* val);
@@ -157,7 +157,7 @@ TNode<T>* TList<T>::get_tail() const {
 }
 
 template <class T>
-bool TList<T>::empty() {
+bool TList<T>::empty() const {
     if (_head == nullptr) {
         return true;
     } else {

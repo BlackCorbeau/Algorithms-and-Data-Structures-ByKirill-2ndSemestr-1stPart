@@ -387,3 +387,21 @@ TEST(libDMassiv, CheckingMethodFindLast) {
     size_t a = t.find_last(2);
     EXPECT_EQ(a, 5);
 }
+
+TEST(libDMassiv, CheckingMethodCleanDeleted) {
+    size_t size = 5;
+    int* arr;
+    arr = new int[size];
+    for (int i = 0; i < 5; i++) {
+        arr[i] = i;
+    }
+
+    DMassiv<int> t(arr, size);
+    t.pop_front();
+    t.cleanDeleted();
+    const int* a = t.data();
+    t.print();
+    size_t b = t.size();
+    EXPECT_EQ(b, 3);
+    EXPECT_TRUE(a[4] != 5);
+}

@@ -35,7 +35,7 @@ class DMassiv {
     inline bool full() const noexcept;
 
     size_t size() const;
-    size_t capacity();
+    size_t capacity() const; // Добавлен const
     const T* data() const;
 
     void swap(DMassiv& archive);
@@ -44,9 +44,9 @@ class DMassiv {
     void reserve(size_t n);
     void resize(size_t n, T value);
     void repack();
+    void cleanDeleted();
 
     DMassiv& assign(const DMassiv& archive);
-
 
     void push_back(T value);
     void pop_back();
@@ -65,8 +65,8 @@ class DMassiv {
     DMassiv& remove_last(T value);
 
     size_t& find_all(T value, const size_t& count) const noexcept;
-    size_t find_first(T value);
-    size_t find_last(T value);
+    size_t find_first(T value) const; // Добавлен const
+    size_t find_last(T value) const; // Добавлен const
 
  private:
     // size_t count_value(T value);
@@ -172,8 +172,9 @@ template<typename T>
 size_t DMassiv<T>::size() const {
     return _size;
 }
+
 template<typename T>
-size_t DMassiv<T>::capacity() {
+size_t DMassiv<T>::capacity() const { // Добавлен const
     return _capacity;
 }
 
@@ -188,7 +189,6 @@ void DMassiv<T>::swap(DMassiv& archive) {
         algorithms::swap(_data[i], archive._data[i]);
     }
 }
-
 
 template<typename T>
 void DMassiv<T>::clear() {
@@ -205,7 +205,7 @@ void DMassiv<T>::reserve(size_t n) {
         std::cout << "Is Full" << '\n';
         return;
     } else {
-        _capacity\
+        _capacity
             = ((_size + n) / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     }
     T* new_data;
@@ -298,7 +298,6 @@ void DMassiv<T>::pop_front() {
         }
     }
 }
-
 
 template<typename T>
 DMassiv<T>& DMassiv<T>::remove_by_index(size_t pos) {
@@ -396,7 +395,7 @@ DMassiv<T>& DMassiv<T>::remove_last(T value) {
 }
 
 template <typename T>
-size_t& DMassiv<T>::find_all(T value, const size_t& count) const noexcept {
+size_t& DMassiv<T>::find_all(T value, const size_t& count) const noexcept { // Добавлен const
     size_t* find_values;
     size_t _count = 0;
     for (int i = 0; i < _size; i++) {
@@ -417,7 +416,7 @@ size_t& DMassiv<T>::find_all(T value, const size_t& count) const noexcept {
 }
 
 template <typename T>
-size_t DMassiv<T>::find_first(T value) {
+size_t DMassiv<T>::find_first(T value) const { // Добавлен const
     for (int i = 0; i < _size; i++) {
         if (_data[i] == value) {
             return i;
@@ -427,7 +426,7 @@ size_t DMassiv<T>::find_first(T value) {
 }
 
 template <typename T>
-size_t DMassiv<T>::find_last(T value) {
+size_t DMassiv<T>::find_last(T value) const { // Добавлен const
     for (int i = _size; i >= 0; i--) {
         if (_data[i] == value) {
             return i;
@@ -436,18 +435,18 @@ size_t DMassiv<T>::find_last(T value) {
     return -1;
 }
 
-/*
 template <typename T>
-size_t* DMassiv<T>::find_all (T value) const noexcept {
-    size_t count = this->count_value(value);
-    if (count == 0) { return nullptr; }
-    int* found_positions = new int[count + 1];
-    found_positions[0] = count;
-
-    // TBD
-
-    return found_positions;
+void DMassiv<T>::cleanDeleted() {
+    size_t j = 0;
+    for (size_t i = 0; i < _size; ++i) {
+        if (_states[i] != State::deleted) {
+            _data[j] = _data[i];
+            _states[j] = _states[i];
+            ++j;
+        }
+    }
+    _size = j;
 }
-*/
+
 
 #endif  // LIB_DMASSIVE_LIB_DMASSIVE_HEDER_H_

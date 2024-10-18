@@ -21,6 +21,9 @@ class TVector {
     bool empty() const noexcept;
     size_t size() const;
     size_t capacity() const;
+    void cleanDeleted() {
+        _data.cleanDeleted();
+    }
     void clear();
     void reserve(size_t n);
     void resize(size_t n, T value);

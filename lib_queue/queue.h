@@ -1,17 +1,17 @@
 // Copyright 2024 Kirill Remizov
 #pragma once
+#include <iostream>
+#include <stdexcept>
 #ifndef LIB_QUEUE_LIB_QUEUE_HEDER_H_
 #define LIB_QUEUE_LIB_QUEUE_HEDER_H_
 
 #include "../lib_list/List.h"
-#include <iostream>
-#include <stdexcept>
 
 template <class T>
 class TQueue {
     TList<T> _list;
 
-public:
+ public:
     TQueue();
     ~TQueue();
 

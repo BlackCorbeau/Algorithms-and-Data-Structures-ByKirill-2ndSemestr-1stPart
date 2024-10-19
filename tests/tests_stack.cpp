@@ -1,5 +1,6 @@
 // Copyright 2024 Kirill Remizov
 
+#include <string>
 #include <gtest.h>
 #include"../lib_Stack/Stack.h"
 

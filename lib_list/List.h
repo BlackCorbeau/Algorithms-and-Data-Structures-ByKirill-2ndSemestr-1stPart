@@ -88,7 +88,7 @@ template <class T>
 class TList {
     TNode<T>* _head;
     TNode<T>* _tail;
-    
+
  public:
     TList();
     explicit TList(const TList<T>* l);

@@ -43,7 +43,7 @@ TEST(TQueueTest, EnqueueDequeueMultiple) {
 // Тест для проверки попытки удаления из пустой очереди
 TEST(TQueueTest, DequeueFromEmpty) {
     TQueue<int> queue;
-    EXPECT_ANY_THROW(queue.dequeue());
+    EXPECT_NO_THROW(queue.dequeue());
 }
 
 // Тест для проверки попытки получения первого элемента из пустой очереди

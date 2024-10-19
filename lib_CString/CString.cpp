@@ -1,5 +1,6 @@
 // Copyright 2024 Kirill Remizov
 
+#include <iostream>
 #include "../lib_algoritms/algoritms.h"
 #include "../lib_CString/CString.h"
 

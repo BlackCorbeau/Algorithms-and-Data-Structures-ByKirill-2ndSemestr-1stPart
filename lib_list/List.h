@@ -9,7 +9,7 @@ class TNode {
     TNode<T>* _pnext;
  public:
     TNode();
-    TNode(const TNode<T>* node);
+    explicit TNode(const TNode<T>* node);
     TNode(T val, TNode<T>* _next);
 
     ~TNode() { }
@@ -88,9 +88,10 @@ template <class T>
 class TList {
     TNode<T>* _head;
     TNode<T>* _tail;
+
  public:
     TList();
-    TList(const TList<T>* l);
+    explicit TList(const TList<T>* l);
     TList(TNode<T>* head, TNode<T>* tail);
 
     ~TList() { }

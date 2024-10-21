@@ -21,14 +21,14 @@ T max(T val_1, T val_2) {
         return val_2;
     }
 }
-    template<typename T>
-    T min(T val_1, T val_2) {
-        if (val_1 < val_2) {
-            return val_1;
-        } else {
-            return val_2;
-        }
+template<typename T>
+T min(T val_1, T val_2) {
+    if (val_1 < val_2) {
+        return val_1;
+    } else {
+        return val_2;
     }
+}
 }  // namespace algorithms
 
 #endif  // LIB_ALGORITMS_ALGORITMS_H_

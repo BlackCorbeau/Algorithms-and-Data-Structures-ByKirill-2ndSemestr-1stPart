@@ -403,5 +403,5 @@ TEST(libDMassiv, CheckingMethodCleanDeleted) {
     t.print();
     size_t b = t.size();
     EXPECT_EQ(b, 3);
-    EXPECT_TRUE(a[4] != 5);
+    EXPECT_NE(a[4], 5);
 }

@@ -10,6 +10,7 @@
 #include "../lib_DMassiv/DMassiv.h"
 #include "../lib_CString/CString.h"
 #include "../lib_Parser/Parser.h"
+#include "../lib_list/List.h"
 
 int main() {
   int a, b;
@@ -41,6 +42,11 @@ int main() {
 
     bool _ans =  is_correct(&ex);
     std::cout << _ans << "\n";
+
+    TList<int> list;
+    list.push_back(10);
+    list.push_back(20);
+    list.push_pos(15, 1);
 }
 
 #endif  // EASY_EXAMPLE

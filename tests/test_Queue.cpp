@@ -2,52 +2,37 @@
 #include <gtest.h>
 #include "../lib_queue/queue.h"
 
-// Тест для проверки, что очередь пуста после создания
-TEST(TQueueTest, IsEmptyOnCreation) {
+TEST(TQueueTest, push_backPop_front) {
     TQueue<int> queue;
-    EXPECT_TRUE(queue.isEmpty());
-}
-
-// Тест для проверки добавления элемента в очередь
-TEST(TQueueTest, Enqueue) {
-    TQueue<int> queue;
-    queue.enqueue(1);
-    EXPECT_FALSE(queue.isEmpty());
-    EXPECT_EQ(queue.front(), 1);
-}
-
-// Тест для проверки удаления элемента из очереди
-TEST(TQueueTest, Dequeue) {
-    TQueue<int> queue;
-    queue.enqueue(1);
-    queue.dequeue();
-    EXPECT_TRUE(queue.isEmpty());
-}
-
-// Тест для проверки добавления и удаления нескольких элементов
-TEST(TQueueTest, EnqueueDequeueMultiple) {
-    TQueue<int> queue;
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
+    queue.push_back(1);
+    queue.push_back(2);
+    queue.push_back(3);
 
     EXPECT_EQ(queue.front(), 1);
-    queue.dequeue();
+    queue.pop_front();
     EXPECT_EQ(queue.front(), 2);
-    queue.dequeue();
+    queue.pop_front();
     EXPECT_EQ(queue.front(), 3);
-    queue.dequeue();
-    EXPECT_TRUE(queue.isEmpty());
+    queue.pop_front();
+    EXPECT_TRUE(queue.empty());
 }
 
-// Тест для проверки попытки удаления из пустой очереди
-TEST(TQueueTest, DequeueFromEmpty) {
+TEST(TQueueTest, EmptyQueue) {
     TQueue<int> queue;
-    EXPECT_NO_THROW(queue.dequeue());
-}
-
-// Тест для проверки попытки получения первого элемента из пустой очереди
-TEST(TQueueTest, FrontFromEmpty) {
-    TQueue<int> queue;
+    EXPECT_TRUE(queue.empty());
     EXPECT_THROW(queue.front(), std::out_of_range);
+}
+
+TEST(TQueueTest, MultiplePush_backPop_front) {
+    TQueue<int> queue;
+    for (int i = 1; i <= 10; ++i) {
+        queue.push_back(i);
+    }
+
+    for (int i = 1; i <= 10; ++i) {
+        EXPECT_EQ(queue.front(), i);
+        queue.pop_front();
+    }
+
+    EXPECT_TRUE(queue.empty());
 }

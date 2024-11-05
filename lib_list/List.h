@@ -3,6 +3,8 @@
 #ifndef LIB_LIST_LIB_LIST_HEDER_H_
 #define LIB_LIST_LIB_LIST_HEDER_H_
 
+#include <iostream>
+
 template <class T>
 class TNode {
     T _value;
@@ -18,10 +20,8 @@ class TNode {
     void set_pnext(TNode<T>* _pnext);
 
     T get_val() const;
+    T& get_val_ref();
     TNode<T>* get_pnext() const;
-
-    void next();
-    TNode<T>& operator=(const TNode<T>& other);
 };
 
 template <class T>
@@ -57,31 +57,13 @@ T TNode<T>::get_val() const {
 }
 
 template <class T>
+T& TNode<T>::get_val_ref() {
+    return _value;
+}
+
+template <class T>
 TNode<T>* TNode<T>::get_pnext() const {
     return _pnext;
-}
-
-template <class T>
-void TNode<T>::next() {
-    this = _pnext;
-}
-
-template <class T>
-TNode<T>& TNode<T>::operator=(const TNode<T>& other) {
-    if (this == &other) {
-        return *this;
-    }
-
-    delete _pnext;
-
-    _value = other._value;
-    if (other._pnext) {
-        _pnext = new TNode<T>(*other._pnext);
-    } else {
-        _pnext = nullptr;
-    }
-
-    return *this;
 }
 
 template <class T>
@@ -104,9 +86,9 @@ class TList {
 
     bool empty() const;
 
-    void push_front(TNode<T>* val);
-    void push_back(TNode<T>* val);
-    void push_pos(TNode<T>* val, int pos);
+    void push_front(T _val);
+    void push_back(T _val);
+    void push_pos(T _val, int pos);
 
     void pop_back();
     void pop_front();
@@ -114,9 +96,13 @@ class TList {
 
     TNode<T>* find(T val);
 
-    void change_first(TNode<T>* val);
-    void change_last(TNode<T>* val);
-    void change_pos(TNode<T>* val, int pos);
+    void change_first(T val);
+    void change_last(T val);
+    void change_pos(T val, int pos);
+
+    T& operator[](int index);
+
+    void print_list() const;
 };
 
 template <class T>
@@ -167,18 +153,19 @@ bool TList<T>::empty() const {
 }
 
 template <class T>
-void TList<T>::push_front(TNode<T>* val) {
+void TList<T>::push_front(T _val) {
+    TNode<T>* val = new TNode<T>(_val, _head);
     if (_head == nullptr) {
         _head = val;
         _tail = val;
     } else {
-        val->set_pnext(_head);
         _head = val;
     }
 }
 
 template <class T>
-void TList<T>::push_back(TNode<T>* val) {
+void TList<T>::push_back(T _val) {
+    TNode<T>* val = new TNode<T>(_val, nullptr);
     if (_tail == nullptr) {
         _head = val;
         _tail = val;
@@ -189,13 +176,26 @@ void TList<T>::push_back(TNode<T>* val) {
 }
 
 template <class T>
-void TList<T>::push_pos(TNode<T>* val, int pos) {
+void TList<T>::push_pos(T _val, int pos) {
+    TNode<T>* val = new TNode<T>(_val, nullptr);
+    if (pos == 0) {
+        val->set_pnext(_head);
+        _head = val;
+        if (_tail == nullptr) {
+            _tail = val;
+        }
+        return;
+    }
+
     int counter = 0;
-    TNode<T>* ex = this->_head;
+    TNode<T>* ex = _head;
     while (ex != nullptr) {
-        if (counter == pos) {
+        if (counter == pos - 1) {
             val->set_pnext(ex->get_pnext());
             ex->set_pnext(val);
+            if (val->get_pnext() == nullptr) {
+                _tail = val;
+            }
             break;
         } else {
             counter += 1;
@@ -268,32 +268,56 @@ TNode<T>* TList<T>::find(T val) {
 }
 
 template <class T>
-void TList<T>::change_first(TNode<T>* val) {
+void TList<T>::change_first(T val) {
     if (_head != nullptr) {
-        _head->set_val(val->get_val());
+        _head->set_val(val);
     }
 }
 
 template <class T>
-void TList<T>::change_last(TNode<T>* val) {
+void TList<T>::change_last(T val) {
     if (_tail != nullptr) {
-        _tail->set_val(val->get_val());
+        _tail->set_val(val);
     }
 }
 
 template <class T>
-void TList<T>::change_pos(TNode<T>* val, int pos) {
+void TList<T>::change_pos(T val, int pos) {
     int counter = 0;
     TNode<T>* ex = _head;
     while (ex != nullptr) {
         if (counter == pos) {
-            ex->set_val(val->get_val());
+            ex->set_val(val);
             break;
         } else {
             counter += 1;
             ex = ex->get_pnext();
         }
     }
+}
+
+template <class T>
+T& TList<T>::operator[](int index) {
+    TNode<T>* current = _head;
+    int counter = 0;
+    while (current != nullptr) {
+        if (counter == index) {
+            return current->get_val_ref();
+        }
+        counter++;
+        current = current->get_pnext();
+    }
+    throw std::out_of_range("Index out of range");
+}
+
+template <class T>
+void TList<T>::print_list() const {
+    TNode<T>* current = _head;
+    while (current != nullptr) {
+        std::cout << current->get_val() << " ";
+        current = current->get_pnext();
+    }
+    std::cout << std::endl;
 }
 
 #endif  // LIB_LIST_LIB_LIST_HEDER_H_

@@ -4,12 +4,13 @@
 #define LIB_LIST_LIB_LIST_HEDER_H_
 
 #include <iostream>
+#include <stdexcept>
 
 template <class T>
 class TNode {
     T _value;
     TNode<T>* _pnext;
- public:
+public:
     TNode();
     explicit TNode(const TNode<T>* node);
     TNode(T val, TNode<T>* _next);
@@ -68,10 +69,46 @@ TNode<T>* TNode<T>::get_pnext() const {
 
 template <class T>
 class TList {
-    TNode<T>* _head;
-    TNode<T>* _tail;
+private:
+    class TIterator {
+        TNode<T>* _node;
+        
+    public:
+        TIterator(TNode<T>* node = nullptr) : _node(node) {}
 
- public:
+        T& operator*() const {
+            return _node->get_val_ref();
+        }
+
+        T* operator->() {
+            return &(_node->get_val_ref());
+        }
+
+        TIterator& operator++() {
+            if (_node) {
+                _node = _node->get_pnext();
+            }
+            return *this;
+        }
+
+        TIterator operator++(int) {
+            TIterator tmp = *this;
+            ++(*this);
+            return tmp;
+        }
+
+        bool operator==(const TIterator& other) const {
+            return _node == other._node;
+        }
+
+        bool operator!=(const TIterator& other) const {
+            return _node != other._node;
+        }
+    };
+
+public:
+    using iterator = TIterator;
+
     TList();
     explicit TList(const TList<T>* l);
     TList(TNode<T>* head, TNode<T>* tail);
@@ -103,6 +140,18 @@ class TList {
     T& operator[](int index);
 
     void print_list() const;
+
+    iterator begin() {
+        return iterator(_head);
+    }
+
+    iterator end() {
+        return iterator(nullptr);
+    }
+
+private:
+    TNode<T>* _head;
+    TNode<T>* _tail;
 };
 
 template <class T>
@@ -319,5 +368,6 @@ void TList<T>::print_list() const {
     }
     std::cout << std::endl;
 }
+
 
 #endif  // LIB_LIST_LIB_LIST_HEDER_H_

@@ -5,26 +5,37 @@
 
 #include<iostream>
 #include "../lib_DMassiv/DMassiv.h"
+#include <stdexcept>
+#define MIN_MAX_SIZE 20
 
 template <typename T>
 class Stack {
  private:
     DMassiv<T> _data;
+    size_t _max_size;
 
  public:
-    Stack() {}
+
+    Stack() {
+        _max_size = MIN_MAX_SIZE;
+    }
+    Stack(size_t max_size) : _max_size(max_size) {}
 
     ~Stack() {}
 
     void push(const T& value) {
-        _data.push_back(value);
+        if (_data.size() < _max_size) {
+            _data.push_back(value);
+        } else {
+            throw std::overflow_error("Stack is full. Cannot push.");
+        }
     }
 
     void pop() {
         if (!_data.empty()) {
             _data.pop_back();
         } else {
-            std::cout << "Stack is empty. Cannot pop." << std::endl;
+            throw std::logic_error("Stack is empty. Cannot pop.");
         }
     }
 
@@ -33,7 +44,7 @@ class Stack {
             const T* a = this->_data.data();
             return a[this->_data.size() - 1];
         } else {
-            std::cout << "Stack is empty. Cannot get top." << std::endl;
+            throw std::logic_error("Stack is empty. Cannot get top.");
             return T();
         }
     }

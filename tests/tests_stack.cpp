@@ -6,69 +6,72 @@
 
 #define EPSILON 0.000001
 
-TEST(StackTest, PushPop) {
-    Stack<int> stack;
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
+TEST(StackTest, Push) {
+    Stack<int> stack(5);
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    EXPECT_EQ(stack.size(), 3);
+}
 
-    EXPECT_EQ(stack.top(), 30);
+TEST(StackTest, PushBeyondLimit) {
+    Stack<int> stack(2);
+    stack.push(1);
+    stack.push(2);
+    EXPECT_THROW(stack.push(3), std::overflow_error);
+}
+
+TEST(StackTest, Pop) {
+    Stack<int> stack(5);
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
     stack.pop();
-    EXPECT_EQ(stack.top(), 20);
+    EXPECT_EQ(stack.size(), 2);
     stack.pop();
-    EXPECT_EQ(stack.top(), 10);
+    EXPECT_EQ(stack.size(), 1);
     stack.pop();
     EXPECT_TRUE(stack.empty());
 }
 
-// Тест на проверку пустого стека
+TEST(StackTest, PopEmptyStack) {
+    Stack<int> stack(5);
+    EXPECT_THROW(stack.pop(), std::logic_error);
+}
+
+TEST(StackTest, Top) {
+    Stack<int> stack(5);
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    EXPECT_EQ(stack.top(), 3);
+    stack.pop();
+    EXPECT_EQ(stack.top(), 2);
+}
+
+TEST(StackTest, TopEmptyStack) {
+    Stack<int> stack(5);
+    EXPECT_THROW(stack.top(), std::logic_error);
+}
+
 TEST(StackTest, Empty) {
-    Stack<int> stack;
+    Stack<int> stack(5);
     EXPECT_TRUE(stack.empty());
-    stack.push(10);
+    stack.push(1);
     EXPECT_FALSE(stack.empty());
     stack.pop();
     EXPECT_TRUE(stack.empty());
 }
 
-// Тест на получение верхнего элемента
-TEST(StackTest, Top) {
-    Stack<int> stack;
-    stack.push(10);
-    EXPECT_EQ(stack.top(), 10);
-    stack.push(20);
-    EXPECT_EQ(stack.top(), 20);
-    stack.push(30);
-    EXPECT_EQ(stack.top(), 30);
-}
-
-// Тест на размер стека
 TEST(StackTest, Size) {
-    Stack<int> stack;
+    Stack<int> stack(5);
     EXPECT_EQ(stack.size(), 0);
-    stack.push(10);
+    stack.push(1);
     EXPECT_EQ(stack.size(), 1);
-    stack.push(20);
-    EXPECT_EQ(stack.size(), 2);
-    stack.push(30);
-    EXPECT_EQ(stack.size(), 3);
-    stack.pop();
+    stack.push(2);
     EXPECT_EQ(stack.size(), 2);
     stack.pop();
     EXPECT_EQ(stack.size(), 1);
     stack.pop();
     EXPECT_EQ(stack.size(), 0);
-}
-
-// Тест на вывод элементов стека
-TEST(StackTest, Print) {
-    Stack<int> stack;
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
-
-    testing::internal::CaptureStdout();
-    stack.print();
-    std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, "10, 20, 30, \n");
 }

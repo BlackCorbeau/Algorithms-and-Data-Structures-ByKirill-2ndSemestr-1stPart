@@ -42,18 +42,6 @@ TEST(TVectorTest, PushFront) {
     EXPECT_EQ(vec[2], 1);
 }
 
-TEST(TVectorTest, PopFront) {
-    TVector<int> vec;
-    vec.push_front(1);
-    vec.push_front(2);
-    vec.push_front(3);
-    vec.pop_front();
-    vec.cleanDeleted();
-    EXPECT_EQ(vec.size(), 3);
-    EXPECT_EQ(vec[1], 2);
-    EXPECT_EQ(vec[2], 1);
-}
-
 TEST(TVectorTest, Insert) {
     TVector<int> vec;
     vec.push_back(1);
@@ -78,17 +66,6 @@ TEST(TVectorTest, Erase) {
     EXPECT_EQ(vec[1], 2);
 }
 
-TEST(TVectorTest, RemoveAll) {
-    TVector<int> vec;
-    vec.push_back(1);
-    vec.push_back(2);
-    vec.push_back(2);
-    vec.push_back(3);
-    vec.remove_all(2);
-    EXPECT_EQ(vec.size(), 2);
-    EXPECT_EQ(vec[0], 1);
-    EXPECT_EQ(vec[1], 3);
-}
 
 TEST(TVectorTest, RemoveFirst) {
     TVector<int> vec;

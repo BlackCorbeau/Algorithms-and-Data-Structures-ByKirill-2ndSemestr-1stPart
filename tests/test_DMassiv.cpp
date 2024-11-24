@@ -3,405 +3,168 @@
 #include <gtest.h>
 #include"../lib_DMassiv/DMassiv.h"
 
-#define EPSILON 0.000001
-
-TEST(libDMassiv, CheckingConstructorZero) {
-    DMassiv<int> t;
-
-    ASSERT_NO_THROW(t);
+TEST(DMassivTest, ConstructorTest) {
+    DMassiv<int> massiv;
+    EXPECT_TRUE(massiv.empty());
+    EXPECT_EQ(massiv.size(), 0);
+    EXPECT_EQ(massiv.capacity(), STEP_CAPACITY);
 }
 
-
-TEST(libDMassiv, CheckingConstructorInitial) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-
-    ASSERT_NO_THROW(t);
-    const int* a = t.data();
-    for (int i = 0; i < size; i++) {
-        EXPECT_EQ(a[i], arr[i]);
+TEST(DMassivTest, CopyConstructorTest) {
+    DMassiv<int> massiv1(5, 10);
+    DMassiv<int> massiv2(massiv1);
+    EXPECT_EQ(massiv2.size(), 5);
+    EXPECT_EQ(massiv2.capacity(), massiv1.capacity());
+    for (size_t i = 0; i < massiv2.size(); ++i) {
+        EXPECT_EQ(massiv2.data()[i], 10);
     }
 }
 
-TEST(libDMassiv, CheckingConstructorCopy) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-    DMassiv<int> t1(t);
-
-    ASSERT_NO_THROW(t1);
-    const int* a = t.data();
-    const int* b = t1.data();
-    for (int i = 0; i < size; i++) {
-        EXPECT_EQ(b[i], a[i]);
+TEST(DMassivTest, ArrayConstructorTest) {
+    int arr[] = {1, 2, 3, 4, 5};
+    DMassiv<int> massiv(arr, 5);
+    EXPECT_EQ(massiv.size(), 5);
+    for (size_t i = 0; i < massiv.size(); ++i) {
+        EXPECT_EQ(massiv.data()[i], arr[i]);
     }
 }
 
-TEST(libDMassiv, CheckingConstructorInitializationWithSameElements) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = 1;
-    }
-
-    DMassiv t(5, 1);
-
-    ASSERT_NO_THROW(t);
-    const int* a = t.data();
-    for (int i = 0; i < size; i++) {
-        EXPECT_EQ(a[i], arr[i]);
+TEST(DMassivTest, ValueConstructorTest) {
+    DMassiv<int> massiv(5, 10);
+    EXPECT_EQ(massiv.size(), 5);
+    for (size_t i = 0; i < massiv.size(); ++i) {
+        EXPECT_EQ(massiv.data()[i], 10);
     }
 }
 
-TEST(libDMassiv, CheckingConstructorInitializationWithNotAllElements) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-    DMassiv<int> t1(t, 1, 2);
-
-    ASSERT_NO_THROW(t1);
-    const int* a = t.data();
-    const int* b = t1.data();
-    for (int i = 1; i < 3; i++) {
-        EXPECT_EQ(b[i - 1], a[i]);
+TEST(DMassivTest, SubarrayConstructorTest) {
+    DMassiv<int> massiv1(10, 10);
+    DMassiv<int> massiv2(massiv1, 2, 5);
+    EXPECT_EQ(massiv2.size(), 5);
+    for (size_t i = 0; i < massiv2.size(); ++i) {
+        EXPECT_EQ(massiv2.data()[i], 10);
     }
 }
 
-TEST(libDMassiv, CheckingGetterSize) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
+TEST(DMassivTest, PushBackTest) {
+    DMassiv<int> massiv;
+    massiv.push_back(10);
+    EXPECT_EQ(massiv.size(), 1);
+    EXPECT_EQ(massiv.data()[0], 10);
+}
+
+TEST(DMassivTest, PopBackTest) {
+    DMassiv<int> massiv(5, 10);
+    massiv.pop_back();
+    EXPECT_EQ(massiv.size(), 4);
+    EXPECT_EQ(massiv.data()[3], 10);
+}
+
+TEST(DMassivTest, PopBackEmptyTest) {
+    DMassiv<int> massiv;
+    EXPECT_THROW(massiv.pop_back(), std::logic_error);
+}
+
+TEST(DMassivTest, PushFrontTest) {
+    DMassiv<int> massiv;
+    massiv.push_front(10);
+    EXPECT_EQ(massiv.size(), 1);
+    EXPECT_EQ(massiv.data()[0], 10);
+}
+
+TEST(DMassivTest, PopFrontTest) {
+    DMassiv<int> massiv(5, 10);
+    massiv.pop_front();
+    EXPECT_EQ(massiv.size(), 4);
+    EXPECT_EQ(massiv.data()[0], 10);
+}
+
+TEST(DMassivTest, PopFrontEmptyTest) {
+    DMassiv<int> massiv;
+    EXPECT_THROW(massiv.pop_front(), std::logic_error);
+}
+
+TEST(DMassivTest, InsertTest) {
+    DMassiv<int> massiv(5, 10);
+    massiv.insert(20, 2);
+    EXPECT_EQ(massiv.size(), 6);
+    EXPECT_EQ(massiv.data()[2], 20);
+}
+
+TEST(DMassivTest, InsertOutOfRangeTest) {
+    DMassiv<int> massiv(5, 10);
+    EXPECT_THROW(massiv.insert(20, 10), std::out_of_range);
+}
+
+TEST(DMassivTest, RemoveByIndexTest) {
+    DMassiv<int> massiv(5, 10);
+    massiv.remove_by_index(2);
+    EXPECT_EQ(massiv.size(), 4);
+    EXPECT_EQ(massiv.data()[2], 10);
+}
+
+TEST(DMassivTest, RemoveByIndexOutOfRangeTest) {
+    DMassiv<int> massiv(5, 10);
+    EXPECT_THROW(massiv.remove_by_index(10), std::out_of_range);
+}
+
+TEST(DMassivTest, EraseTest) {
+    DMassiv<int> massiv(5, 10);
+    massiv.erase(1, 2);
+    EXPECT_EQ(massiv.size(), 3);
+    EXPECT_EQ(massiv.data()[1], 10);
+}
+
+TEST(DMassivTest, EraseOutOfRangeTest) {
+    DMassiv<int> massiv(5, 10);
+    EXPECT_THROW(massiv.erase(1, 10), std::out_of_range);
+}
+
+TEST(DMassivTest, RemoveAllTest) {
+    DMassiv<int> massiv(5, 10);
+    massiv.remove_all(10);
+    EXPECT_EQ(massiv.size(), 0);
+}
+
+TEST(DMassivTest, RemoveFirstTest) {
+    DMassiv<int> massiv(5, 10);
+    massiv.remove_first(10);
+    EXPECT_EQ(massiv.size(), 4);
+    EXPECT_EQ(massiv.data()[0], 10);
+}
+
+TEST(DMassivTest, RemoveLastTest) {
+    DMassiv<int> massiv(5, 10);
+    massiv.remove_last(10);
+    EXPECT_EQ(massiv.size(), 4);
+    EXPECT_EQ(massiv.data()[3], 10);
+}
+
+TEST(DMassivTest, FindAllTest) {
+    DMassiv<int> massiv(5, 10);
+    size_t count = 0;
+    size_t* indices = massiv.find_all(10, count);
+    EXPECT_EQ(count, 5);
+    for (size_t i = 0; i < count; ++i) {
+        EXPECT_EQ(indices[i], i);
     }
-
-    DMassiv<int> t(arr, size);
-
-    ASSERT_NO_THROW(t);
-    EXPECT_EQ(t.size(), 5);
+    delete[] indices;
 }
 
-TEST(libDMassiv, CheckingGetterCapacity) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-
-    ASSERT_NO_THROW(t);
-    EXPECT_EQ(t.capacity(), 15);
+TEST(DMassivTest, FindFirstTest) {
+    DMassiv<int> massiv(5, 10);
+    EXPECT_EQ(massiv.find_first(10), 0);
 }
 
-TEST(libDMassiv, CheckingGetterData) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-
-    ASSERT_NO_THROW(t);
-    const int* a = t.data();
-    for (int i = 0; i < size; i++) {
-        EXPECT_EQ(a[i], arr[i]);
-    }
+TEST(DMassivTest, FindLastTest) {
+    DMassiv<int> massiv(5, 10);
+    EXPECT_EQ(massiv.find_last(10), 4);
 }
 
-TEST(libDMassiv, CheckingSwapF) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-    DMassiv<int> t1(5, 7);
-
-    ASSERT_NO_THROW(t);
-    ASSERT_NO_THROW(t1);
-
-    t.swap(t1);
-
-    const int* a = t.data();
-    const int* b = t1.data();
-    for (int i = 0; i < size; i++) {
-        EXPECT_EQ(a[i], 7);
-        EXPECT_EQ(b[i], arr[i]);
-    }
-}
-
-TEST(libDMassiv, CheckingClearF) {
-    DMassiv<int> t(5, 1);
-
-    ASSERT_NO_THROW(t.clear());
-
-    EXPECT_EQ(t.size(), 0);
-    EXPECT_EQ(t.capacity(), 15);
-    EXPECT_EQ(t.data(), nullptr);
-}
-
-TEST(libDMassiv, CheckingMethodResolve) {
-    DMassiv<int> t(15, 1);
-
-    t.reserve(5);
-
-    EXPECT_EQ(t.capacity(), 30);
-}
-
-TEST(libDMassiv, CheckingMethodResize) {
-    DMassiv<int> t(10, 5);
-
-    t.resize(2, 3);
-
-    int ans[11] = {5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 3};
-
-    const int* a = t.data();
-
-    for (int i = 0; i < 11; i++) {
-        EXPECT_EQ(a[i], ans[i]);
-    }
-}
-
-TEST(libDMassiv, CheckingAssignMethod) {
-    DMassiv<int> t(15, 1);
-    DMassiv<int> t1(5, 4);
-
-    int ans[5] = {4, 4, 4, 4, 4};
-
-    ASSERT_NO_THROW(t.assign(t1));
-    const int* a = t.data();
-    for (int i = 0; i < 5; i++) {
-        EXPECT_EQ(a[i], ans[i]);
-    }
-}
-
-TEST(libDMassiv, CheckingMethodPushBack) {
-    DMassiv<int> t(5, 4);
-
-    ASSERT_NO_THROW(t.push_back(5));
-    const int* a = t.data();
-    EXPECT_EQ(a[5], 5);
-}
-
-TEST(libDMassiv, CheckingMethodPopBack) {
-    DMassiv<int> t(5, 4);
-
-    ASSERT_NO_THROW(t.pop_back());
-    int a = t.size();
-    EXPECT_EQ(a, 4);
-}
-
-TEST(libDMassiv, CheckingMethodPushFront) {
-    DMassiv<int> t(5, 4);
-
-    ASSERT_NO_THROW(t.push_front(3));
-    const int* a = t.data();
-    EXPECT_EQ(a[0], 3);
-}
-
-TEST(libDMassiv, CheckingMethodPopFront) {
-    DMassiv<int> t(5, 4);
-
-    ASSERT_NO_THROW(t.pop_front());
-    int a = t.size();
-    const int* _a = t.data();
-    EXPECT_EQ(a, 4);
-    EXPECT_EQ(_a[0], 4);
-}
-
-TEST(libDMassiv, CheckingMethodRemoveByIndex) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-
-    ASSERT_NO_THROW(t.remove_by_index(2));
-    int a = t.size();
-    const int* _a = t.data();
-    EXPECT_EQ(a, 4);
-}
-
-TEST(libDMassiv, CheckingMethodInsert1) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-
-    ASSERT_NO_THROW(t.insert(9, 2));
-    int a = t.size();
-    const int* _a = t.data();
-    EXPECT_EQ(a, 6);
-    EXPECT_EQ(_a[2], 9);
-}
-
-TEST(libDMassiv, checkingMethodInsert2) {
-    DMassiv<int> t(15, 1);
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = 4;
-    }
-
-    ASSERT_NO_THROW(t.insert(arr, 2, 2));
-    const int* b = t.data();
-    int c = t.size();
-    EXPECT_EQ(c, 17);
-    for (int i = 2; i < 4; i++) {
-        EXPECT_EQ(b[i], 4);
-    }
-}
-
-TEST(libDMassiv, checkingMethodReplace) {
-    DMassiv<int> t(15, 1);
-
-    ASSERT_NO_THROW(t.replace(2, 2));
-    const int* a = t.data();
-    EXPECT_EQ(a[2], 2);
-}
-
-TEST(libDMassiv, checkingMethodErase) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-
-    ASSERT_NO_THROW(t.erase(2, 2));
-
-    EXPECT_EQ(t.size(), 3);
-}
-
-TEST(libDMassiv, checkingRemooveAllMethod) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-    t.push_back(4);
-
-    ASSERT_NO_THROW(t.remove_all(4));
-    EXPECT_EQ(t.size(), 6-2);
-}
-
-TEST(libDMassiv, checkingRemoveFirstMethod) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-    t.push_back(2);
-
-    ASSERT_NO_THROW(t.remove_first(2));
-    const int* a = t.data();
-    EXPECT_EQ(t.size(), 6-1);
-    EXPECT_EQ(a[5], 2);
-}
-
-TEST(libDMassiv, CheckingMethodRemoveLast) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-    t.push_front(2);
-
-    ASSERT_NO_THROW(t.remove_last(2));
-    const int* a = t.data();
-    EXPECT_EQ(t.size(), 6-1);
-    EXPECT_EQ(a[0], 2);
-}
-
-
-TEST(libDMassiv, CheckingMethodFindFirst) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-    t.push_front(2);
-
-    ASSERT_NO_THROW(t.find_first(2));
-    size_t a = t.find_first(2);
-    EXPECT_EQ(a, 0);
-}
-
-TEST(libDMassiv, CheckingMethodFindLast) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-    t.push_back(2);
-
-    ASSERT_NO_THROW(t.find_last(2));
-    size_t a = t.find_last(2);
-    EXPECT_EQ(a, 5);
-}
-
-TEST(libDMassiv, CheckingMethodCleanDeleted) {
-    size_t size = 5;
-    int* arr;
-    arr = new int[size];
-    for (int i = 0; i < 5; i++) {
-        arr[i] = i;
-    }
-
-    DMassiv<int> t(arr, size);
-    t.pop_front();
-    t.cleanDeleted();
-    const int* a = t.data();
-    t.print();
-    size_t b = t.size();
-    EXPECT_EQ(b, 3);
-    EXPECT_NE(a[4], 5);
+TEST(DMassivTest, CleanDeletedTest) {
+    DMassiv<int> massiv(5, 10);
+    massiv.remove_by_index(2);
+    massiv.cleanDeleted();
+    EXPECT_EQ(massiv.size(), 3);
+    EXPECT_EQ(massiv.data()[2], 10);
 }

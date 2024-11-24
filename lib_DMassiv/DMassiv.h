@@ -8,6 +8,7 @@
 #include <iostream>
 #include <algorithm>
 #include <utility>
+#include <stdexcept>
 #include "../lib_algoritms/algoritms.h"
 
 enum State { empty, busy, deleted };
@@ -20,7 +21,35 @@ class DMassiv {
     size_t _size;
     size_t _deleted;
 
- public:
+    class Iterator {
+        DMassiv<T>& _dmassiv;
+        size_t _index;
+
+    public:
+        Iterator(DMassiv<T>& dmassiv, size_t index)
+            : _dmassiv(dmassiv), _index(index) {
+            while (_index < _dmassiv._size && _dmassiv._states[_index] != State::busy) {
+                ++_index;
+            }
+        }
+
+        bool operator!=(const Iterator& other) const {
+            return _index != other._index;
+        }
+
+        T& operator*() const {
+            return _dmassiv._data[_index];
+        }
+
+        Iterator& operator++() {
+            do {
+                ++_index;
+            } while (_index < _dmassiv._size && _dmassiv._states[_index] != State::busy);
+            return *this;
+        }
+    };
+
+public:
     DMassiv();
     DMassiv(const DMassiv& archive);
     DMassiv(const T* arr, size_t n);
@@ -64,9 +93,17 @@ class DMassiv {
     DMassiv& remove_first(T value);
     DMassiv& remove_last(T value);
 
-    size_t& find_all(T value, const size_t& count) const noexcept;
+    size_t* find_all(T value, size_t& count) const;
     size_t find_first(T value) const;
     size_t find_last(T value) const;
+
+    Iterator begin() {
+        return Iterator(*this, 0);
+    }
+
+    Iterator end() {
+        return Iterator(*this, _size);
+    }
 };
 
 template <typename T>
@@ -152,7 +189,9 @@ DMassiv<T>::DMassiv(const DMassiv& archive, size_t pos, size_t len) {
 template <typename T>
 DMassiv<T>::~DMassiv() {
     delete[] _data;
+    delete[] _states;
     _data = nullptr;
+    _states = nullptr;
 }
 
 template <typename T>
@@ -189,6 +228,8 @@ void DMassiv<T>::swap(DMassiv& archive) {
 
 template<typename T>
 void DMassiv<T>::clear() {
+    delete[] _data;
+    delete[] _states;
     _data = nullptr;
     _states = nullptr;
     _size = 0;
@@ -205,10 +246,8 @@ void DMassiv<T>::reserve(size_t n) {
         _capacity
             = ((_size + n) / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     }
-    T* new_data;
-    State* new_states;
-    new_data = new T[_capacity];
-    new_states = new State[_capacity];
+    T* new_data = new T[_capacity];
+    State* new_states = new State[_capacity];
     for (int i = 0; i < _size; i++) {
         new_data[i] = _data[i];
         new_states[i] = _states[i];
@@ -266,11 +305,15 @@ template<typename T>
 void DMassiv<T>::push_back(T value) {
     this->reserve(1);
     _data[_size] = value;
+    _states[_size] = State::busy;
     _size += 1;
 }
 
 template<typename T>
 void DMassiv<T>::pop_back() {
+    if (this->empty()) {
+        throw std::logic_error("Error in function pop_back(): array is empty.");
+    }
     _states[_size - 1] = State::empty;
     _size -= 1;
 }
@@ -280,13 +323,18 @@ void DMassiv<T>::push_front(T value) {
     this->reserve(1);
     for (int i = _size; i >= 0; i--) {
         _data[i + 1] = _data[i];
+        _states[i + 1] = _states[i];
     }
     _data[0] = value;
+    _states[0] = State::busy;
     _size += 1;
 }
 
 template<typename T>
 void DMassiv<T>::pop_front() {
+    if (this->empty()) {
+        throw std::logic_error("Error in function pop_front(): array is empty.");
+    }
     for (int i = 0; i < _size; i++) {
         if (_states[i] == busy) {
             _states[i] = deleted;
@@ -298,6 +346,9 @@ void DMassiv<T>::pop_front() {
 
 template<typename T>
 DMassiv<T>& DMassiv<T>::remove_by_index(size_t pos) {
+    if (pos >= _size) {
+        throw std::out_of_range("Error in function remove_by_index(): index out of range.");
+    }
     _states[pos] = State::deleted;
     _size -= 1;
     return *this;
@@ -305,15 +356,15 @@ DMassiv<T>& DMassiv<T>::remove_by_index(size_t pos) {
 
 template <typename T>
 DMassiv<T>& DMassiv<T>::insert(T value, size_t pos) {
-    if (_size < pos) {
-        throw std::logic_error
-        ("Error in function DMassiv<>&insert(T): wrong position value.");
+    if (pos > _size) {
+        throw std::out_of_range("Error in function insert(T value, size_t pos): position out of range.");
     }
 
     this->reserve(1);
 
     for (size_t i = _size; i > pos; i--) {
         _data[i] = _data[i - 1];
+        _states[i] = _states[i - 1];
     }
     _data[pos] = value;
     _states[pos] = State::busy;
@@ -322,13 +373,19 @@ DMassiv<T>& DMassiv<T>::insert(T value, size_t pos) {
 }
 
 template <typename T>
-DMassiv<T>& DMassiv<T>::insert(const T* arr, size_t n, size_t pos)  {
+DMassiv<T>& DMassiv<T>::insert(const T* arr, size_t n, size_t pos) {
+    if (pos > _size) {
+        throw std::out_of_range("Error in function insert(const T* arr, size_t n, size_t pos): position out of range.");
+    }
+
     this->reserve(n);
     for (int i = _size - 1; i >= pos; i--) {
         _data[i + n] = _data[i];
+        _states[i + n] = _states[i];
     }
     for (int i = pos, j = 0; i < n + pos; i++, j++) {
         _data[i] = arr[j];
+        _states[i] = State::busy;
     }
     _size += n;
     return *this;
@@ -336,6 +393,9 @@ DMassiv<T>& DMassiv<T>::insert(const T* arr, size_t n, size_t pos)  {
 
 template <typename T>
 DMassiv<T>& DMassiv<T>::replace(size_t pos, T new_value) {
+    if (pos >= _size) {
+        throw std::out_of_range("Error in function replace(size_t pos, T new_value): position out of range.");
+    }
     _data[pos] = new_value;
     return *this;
 }
@@ -352,6 +412,9 @@ void DMassiv<T>::print() const noexcept {
 
 template <typename T>
 DMassiv<T>& DMassiv<T>::erase(size_t pos, size_t n) {
+    if (pos + n > _size) {
+        throw std::out_of_range("Error in function erase(size_t pos, size_t n): range out of bounds.");
+    }
     for (int i = pos; i < pos + n; i++) {
         _states[i] = State::deleted;
     }
@@ -374,42 +437,39 @@ DMassiv<T>& DMassiv<T>::remove_all(T value) {
 
 template <typename T>
 DMassiv<T>& DMassiv<T>::remove_first(T value) {
-    for (int i = 0; i < value; i++) {
-        _states[i] = State::deleted;
-        break;
+    for (int i = 0; i < _size; i++) {
+        if (_data[i] == value) {
+            _states[i] = State::deleted;
+            _size -= 1;
+            break;
+        }
     }
-    _size -= 1;
     return *this;
 }
 
 template <typename T>
 DMassiv<T>& DMassiv<T>::remove_last(T value) {
-    for (int i = _size - 1, j = 0; j < value; i--, j++) {
-        _states[i] = State::deleted;
+    for (int i = _size - 1; i >= 0; i--) {
+        if (_data[i] == value) {
+            _states[i] = State::deleted;
+            _size -= 1;
+            break;
+        }
     }
-    _size -= 1;
     return *this;
 }
 
 template <typename T>
-size_t& DMassiv<T>::find_all(T value, const size_t& count) const noexcept {
-    size_t* find_values;
-    size_t _count = 0;
-    for (int i = 0; i < _size; i++) {
-        if (_data[i] == value) {
-            _count++;
+size_t* DMassiv<T>::find_all(T value, size_t& count) const {
+    size_t* find_values = new size_t[_size];
+    count = 0;
+    for (size_t i = 0; i < _size; i++) {
+        if (_data[i] == value && _states[i] == State::busy) {
+            find_values[count] = i;
+            count++;
         }
     }
-    find_values = new size_t[_count];
-    count = _count;
-    _count = 0;
-    for (int i = 0; i < _size; i++) {
-        if (_data[i] == value) {
-            find_values[_count] = i;
-            _count++;
-        }
-    }
-    return *find_values;
+    return find_values;
 }
 
 template <typename T>
@@ -424,7 +484,7 @@ size_t DMassiv<T>::find_first(T value) const {
 
 template <typename T>
 size_t DMassiv<T>::find_last(T value) const {
-    for (int i = _size; i >= 0; i--) {
+    for (int i = _size - 1; i >= 0; i--) {
         if (_data[i] == value) {
             return i;
         }
@@ -444,6 +504,5 @@ void DMassiv<T>::cleanDeleted() {
     }
     _size = j;
 }
-
 
 #endif  // LIB_DMASSIVE_LIB_DMASSIVE_HEDER_H_

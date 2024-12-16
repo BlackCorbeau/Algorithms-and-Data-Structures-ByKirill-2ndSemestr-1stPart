@@ -2,6 +2,7 @@
 
 #include "../lib_Parser/Parser.h"
 #include "../lib_Stack/Stack.h"
+#include "../lib_list/List.h"
 
 bool is_correct(const CString* exp) {
     Stack<char> st;
@@ -44,3 +45,22 @@ bool is_correct(const CString* exp) {
 
     return true;
 }
+
+template<typename T>
+bool RabbitandTurtleCycleList(const TList<T>& list) {
+    TNode<T>* rab = list.get_head();
+    TNode<T>* turt = list.get_head();
+
+    while (rab != nullptr && rab->get_pnext() != nullptr
+        && turt != nullptr && turt->get_pnext() != nullptr) {
+        rab = rab->get_pnext()->get_pnext();
+        turt = turt->get_pnext();
+
+        if (rab == turt) {
+            return true;
+        }
+    }
+    return false;
+}
+
+template bool RabbitandTurtleCycleList<int>(const TList<int>& list);

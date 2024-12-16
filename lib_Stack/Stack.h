@@ -6,7 +6,7 @@
 #include<iostream>
 #include "../lib_DMassiv/DMassiv.h"
 #include <stdexcept>
-#define MIN_MAX_SIZE 20
+#define MIN_MAX_SIZE 1000000
 
 template <typename T>
 class Stack {

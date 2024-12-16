@@ -69,7 +69,6 @@ TNode<T>* TNode<T>::get_pnext() const {
 
 template <class T>
 class TList {
-private:
     class TIterator {
         TNode<T>* _node;
         

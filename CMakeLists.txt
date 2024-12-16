@@ -14,6 +14,7 @@ add_subdirectory(lib_easy_example)    # подключаем дополните�
 add_subdirectory(lib_pair)
 add_subdirectory(lib_DMassiv)
 add_subdirectory(lib_Stack)
+add_subdirectory(lib_LStack)
 add_subdirectory(lib_Parser)
 add_subdirectory(lib_CString)
 add_subdirectory(lib_algoritms)

@@ -12,4 +12,7 @@ bool is_correct(const CString* exp);
 template<typename T>
 bool RabbitandTurtleCycleList(const TList<T>& list);
 
+template<typename T>
+bool UpheavalPointerCycleList(const TList<T>& list);
+
 #endif  // LIB_PARSER_LIB_PARSER_HEDER_H_

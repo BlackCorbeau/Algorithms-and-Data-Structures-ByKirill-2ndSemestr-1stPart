@@ -20,18 +20,18 @@ public:
     void clear();
 };
 
-DSU::DSU(int size){
+DSU::DSU(int size) {
     _size = size;
     _parent = new int[_size];
-    for (int i = 0; i < _size; ++i) {
-        make_set(i);
+    for (int i = 0; i < _size; i++){
+        make_set(_parent[i]);
     }
 }
 
 DSU::~DSU() {
+    _size = 0;
     delete[] _parent;
     _parent = nullptr;
-    _size = 0;
 }
 
 void DSU::make_set(int elem) {
@@ -39,7 +39,7 @@ void DSU::make_set(int elem) {
 }
 
 int DSU::find(int elem) {
-    while (elem != _parent[elem]) {
+    while (_parent[elem] != elem){
         elem = _parent[elem];
     }
     return elem;
@@ -55,8 +55,6 @@ void DSU::union_sets(int first, int second) {
 }
 
 void DSU::clear() {
-    delete[] _parent;
-    _size = 0;
+    this->~DSU();
 }
-
-#endif  // LIB_DMASSIVE_LIB_DMASSIVE_HEDER_H_
+#endif  // LIB_DSU_LIB_DSU_HEDER_H_

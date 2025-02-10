@@ -52,7 +52,7 @@ bool RabbitandTurtleCycleList(const TList<T>& list) {
     TNode<T>* turt = list.get_head();
 
     while (rab != nullptr && rab->get_pnext() != nullptr
-        && turt != nullptr && turt->get_pnext() != nullptr) {
+        && turt != nullptr) {
         rab = rab->get_pnext()->get_pnext();
         turt = turt->get_pnext();
 

@@ -9,6 +9,7 @@
 class DSU {
     int _size;
     int *_parent;
+    int *_rank;
 
 public:
     DSU(int size = 0);
@@ -23,26 +24,30 @@ public:
 DSU::DSU(int size) {
     _size = size;
     _parent = new int[_size];
-    for (int i = 0; i < _size; i++){
-        make_set(_parent[i]);
+    _rank = new int[_size];
+    for (int i = 0; i < _size; ++i) {
+        make_set(i);
     }
 }
 
 DSU::~DSU() {
-    _size = 0;
     delete[] _parent;
+    delete[] _rank;
     _parent = nullptr;
+    _rank = nullptr;
+    _size = 0;
 }
 
 void DSU::make_set(int elem) {
     _parent[elem] = elem;
+    _rank[elem] = 0;
 }
 
 int DSU::find(int elem) {
-    while (_parent[elem] != elem){
-        elem = _parent[elem];
+    if (_parent[elem] != elem) {
+        _parent[elem] = find(_parent[elem]);
     }
-    return elem;
+    return _parent[elem];
 }
 
 void DSU::union_sets(int first, int second) {
@@ -50,7 +55,14 @@ void DSU::union_sets(int first, int second) {
     int root2 = find(second);
 
     if (root1 != root2) {
-        _parent[root2] = root1;
+        if (_rank[root1] > _rank[root2]) {
+            _parent[root2] = root1;
+        } else if (_rank[root1] < _rank[root2]) {
+            _parent[root1] = root2;
+        } else {
+            _parent[root2] = root1;
+            _rank[root1]++;
+        }
     }
 }
 

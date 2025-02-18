@@ -140,6 +140,8 @@ public:
 
     void print_list() const;
 
+    int size();
+
     iterator begin() {
         return iterator(_head);
     }
@@ -368,5 +370,15 @@ void TList<T>::print_list() const {
     std::cout << std::endl;
 }
 
+template <class T>
+int TList<T>::size() {
+    int _size = 0;
+    TNode<T> node = this->_head;
+    while (node != nullptr) {
+        _size ++;
+        node.get_pnext();
+    }
+    return _size;
+}
 
 #endif  // LIB_LIST_LIB_LIST_HEDER_H_

@@ -6,6 +6,8 @@
 
 #include "../lib_CString/CString.h"
 #include "../lib_list/List.h"
+#include <cstdlib>
+#include <ctime>
 
 bool is_correct(const CString* exp);
 
@@ -14,5 +16,7 @@ bool RabbitandTurtleCycleList(const TList<T>& list);
 
 template<typename T>
 bool UpheavalPointerCycleList(const TList<T>& list);
+
+int GenerateIntId();
 
 #endif  // LIB_PARSER_LIB_PARSER_HEDER_H_

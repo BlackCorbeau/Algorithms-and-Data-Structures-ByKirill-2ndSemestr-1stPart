@@ -3,6 +3,8 @@
 #include "../lib_Parser/Parser.h"
 #include "../lib_Stack/Stack.h"
 #include "../lib_list/List.h"
+#include <cstdlib>
+#include <ctime>
 
 bool is_correct(const CString* exp) {
     Stack<char> st;
@@ -62,5 +64,11 @@ bool RabbitandTurtleCycleList(const TList<T>& list) {
     }
     return false;
 }
+
+int GenerateIntId() {
+    std::srand(static_cast<unsigned int>(std::time(0)));
+    int randomNumber = std::rand();
+    return randomNumber;
+};
 
 template bool RabbitandTurtleCycleList<int>(const TList<int>& list);

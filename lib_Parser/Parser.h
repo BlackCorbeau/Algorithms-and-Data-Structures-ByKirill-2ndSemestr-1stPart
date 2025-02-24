@@ -17,6 +17,4 @@ bool RabbitandTurtleCycleList(const TList<T>& list);
 template<typename T>
 bool UpheavalPointerCycleList(const TList<T>& list);
 
-int GenerateIntId();
-
 #endif  // LIB_PARSER_LIB_PARSER_HEDER_H_

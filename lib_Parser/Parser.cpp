@@ -64,11 +64,4 @@ bool RabbitandTurtleCycleList(const TList<T>& list) {
     }
     return false;
 }
-
-int GenerateIntId() {
-    std::srand(static_cast<unsigned int>(std::time(0)));
-    int randomNumber = std::rand();
-    return randomNumber;
-};
-
 template bool RabbitandTurtleCycleList<int>(const TList<int>& list);

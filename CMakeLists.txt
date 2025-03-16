@@ -24,6 +24,9 @@ add_subdirectory(lib_queue)
 add_subdirectory(lib_DSU)
 add_subdirectory(lib_Table)
 add_subdirectory(lib_UTable)
+add_subdirectory(lib_BinTree)
+add_subdirectory(lib_UTableDM)
+add_subdirectory(lib_STable)
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)

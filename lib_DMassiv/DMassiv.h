@@ -97,6 +97,9 @@ public:
     size_t find_first(T value) const;
     size_t find_last(T value) const;
 
+    T& operator[](size_t index);
+    const T& operator[](size_t index) const;
+
     Iterator begin() {
         return Iterator(*this, 0);
     }
@@ -503,6 +506,22 @@ void DMassiv<T>::cleanDeleted() {
         }
     }
     _size = j;
+}
+
+template <typename T>
+T& DMassiv<T>::operator[](size_t index) {
+    if (index >= _size || _states[index] != State::busy) {
+        throw std::out_of_range("Index out of range or element is not busy.");
+    }
+    return _data[index];
+}
+
+template <typename T>
+const T& DMassiv<T>::operator[](size_t index) const{
+    if (index >= _size || _states[index] != State::busy) {
+        throw std::out_of_range("Index out of range or element is not busy.");
+    }
+    return _data[index];
 }
 
 #endif  // LIB_DMASSIVE_LIB_DMASSIVE_HEDER_H_

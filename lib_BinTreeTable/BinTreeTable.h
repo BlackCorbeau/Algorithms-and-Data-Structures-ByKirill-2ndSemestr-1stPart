@@ -37,3 +37,11 @@ Tkey BTTable<Tkey, Tval>::insert(Tval val) {
     table.Insert(par);
     return _size;
 }
+
+template <class Tkey, class Tval>
+void BTTable<Tkey, Tval>::insert(Tkey key, Tval val) {
+    _size++;
+    TPair<Tkey, Tval> par(key, val);
+    table.Insert(par);
+}
+

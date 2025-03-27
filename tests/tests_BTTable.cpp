@@ -31,3 +31,12 @@ TEST(BTTableTest, EraseElement) {
     EXPECT_EQ(table.find(2), "value2");
 }
 
+TEST(BTTableTest, Find) {
+    BTTable<int, std::string> table;
+    table.insert(1, "value1");
+    table.insert(2, "value2");
+
+    EXPECT_EQ(table.find(1), "value1");
+    EXPECT_EQ(table.find(2), "value2");
+}
+

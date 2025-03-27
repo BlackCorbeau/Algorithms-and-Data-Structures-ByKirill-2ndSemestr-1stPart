@@ -55,3 +55,13 @@ void BTTable<Tkey, Tval>::erase(Tkey key) {
     }
 }
 
+template <class Tkey, class Tval>
+Tval BTTable<Tkey, Tval>::find(Tkey key) {
+    TPair<Tkey, Tval> tempPair(key, Tval());
+    TrNode<TPair<Tkey, Tval>>* node = table.Search(tempPair);
+    if (node == nullptr) {
+        throw std::out_of_range("Key not found in the table");
+    }
+    return node->getValue().second();
+}
+

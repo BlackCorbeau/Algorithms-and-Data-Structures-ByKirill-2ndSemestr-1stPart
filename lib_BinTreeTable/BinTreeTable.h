@@ -29,3 +29,11 @@ public:
 
     void print() const noexcept;
 };
+
+template <class Tkey, class Tval>
+Tkey BTTable<Tkey, Tval>::insert(Tval val) {
+    _size++;
+    TPair<Tkey, Tval> par(_size, val);
+    table.Insert(par);
+    return _size;
+}

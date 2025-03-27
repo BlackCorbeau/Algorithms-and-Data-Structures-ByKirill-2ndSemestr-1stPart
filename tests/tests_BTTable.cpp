@@ -40,3 +40,10 @@ TEST(BTTableTest, Find) {
     EXPECT_EQ(table.find(2), "value2");
 }
 
+TEST(BTTableTest, Print) {
+    BTTable<int, std::string> table;
+    table.insert(1, "value1");
+    table.insert(2, "value2");
+
+    EXPECT_NO_THROW(table.print());
+}

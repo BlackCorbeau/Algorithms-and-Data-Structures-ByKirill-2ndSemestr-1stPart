@@ -65,3 +65,11 @@ Tval BTTable<Tkey, Tval>::find(Tkey key) {
     return node->getValue().second();
 }
 
+template <class Tkey, class Tval>
+void BTTable<Tkey, Tval>::print() const noexcept {
+    table.Print();
+}
+
+
+
+#endif // LIB_BINTREETABLE_LIB_BINTREETABLE_HEDER_H_

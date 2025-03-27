@@ -45,3 +45,13 @@ void BTTable<Tkey, Tval>::insert(Tkey key, Tval val) {
     table.Insert(par);
 }
 
+template <class Tkey, class Tval>
+void BTTable<Tkey, Tval>::erase(Tkey key) {
+    TPair<Tkey, Tval> tempPair(key, Tval());
+
+    if (table.Search(tempPair) != nullptr) {
+        table.Remove(tempPair);
+        _size--;
+    }
+}
+

@@ -1,4 +1,5 @@
 #include <gtest.h>
+#include <icecream.hpp>
 #include "../lib_BinTreeTable/BinTreeTable.h"
 
 TEST(BTTableTest, InsertAutoKey) {
@@ -17,5 +18,16 @@ TEST(BTTableTest, InsertWithKey) {
 
     EXPECT_EQ(table.find(10), "value10");
     EXPECT_EQ(table.find(20), "value20");
+}
+
+// Тест для удаления элемента
+TEST(BTTableTest, EraseElement) {
+    BTTable<int, std::string> table;
+    table.insert(1, "value1");
+    table.insert(2, "value2");
+    table.erase(1);
+
+    EXPECT_EQ(table.size(), 1);
+    EXPECT_EQ(table.find(2), "value2");
 }
 

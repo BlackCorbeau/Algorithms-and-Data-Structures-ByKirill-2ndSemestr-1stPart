@@ -67,6 +67,56 @@ TPair<T1, T2>& TPair<T1, T2>::operator=(const TPair<T1, T2>& pair) noexcept {
     }
     return *this;
 }
+
+template <class T1, class T2>
+bool operator>(const TPair<T1, T2>& lhs, const TPair<T1, T2>& rhs) noexcept {
+    if (lhs.first() != rhs.first()) {
+        return lhs.first() > rhs.first();
+    }
+    return lhs.second() > rhs.second();
+}
+
+template <class T1, class T2>
+bool operator>=(const TPair<T1, T2>& lhs, const TPair<T1, T2>& rhs) noexcept {
+    if (lhs.first() != rhs.first()) {
+        return lhs.first() >= rhs.first();
+    }
+    return lhs.second() >= rhs.second();
+}
+
+template <class T1, class T2>
+bool operator<(const TPair<T1, T2>& lhs, const TPair<T1, T2>& rhs) noexcept {
+    if (lhs.first() != rhs.first()) {
+        return lhs.first() < rhs.first();
+    }
+    return lhs.second() < rhs.second();
+}
+
+template <class T1, class T2>
+bool operator<=(const TPair<T1, T2>& lhs, const TPair<T1, T2>& rhs) noexcept {
+    if (lhs.first() != rhs.first()) {
+        return lhs.first() <= rhs.first();
+    }
+    return lhs.second() <= rhs.second();
+}
+
+template <class T1, class T2>
+bool operator==(const TPair<T1, T2>& lhs, const TPair<T1, T2>& rhs) noexcept {
+    // return lhs.first() == rhs.first() && lhs.second() == rhs.second();
+    if(lhs.first() == rhs.first()){
+        return true;
+    } else if (lhs.second() == rhs.second()){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+template <class T1, class T2>
+std::ostream& operator<<(std::ostream& out, const TPair<T1, T2>& pair) noexcept {
+    out << "(" << pair.first() << ", " << pair.second() << ")";
+    return out;
+}
 /*
 template <class T1, class T2>
 std::ostream& operator<< <T1, T2>

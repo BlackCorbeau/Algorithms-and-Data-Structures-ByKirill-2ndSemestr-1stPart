@@ -49,3 +49,39 @@ private:
     void shift_up(size_t pos);
     void shift_down(size_t pos);
 };
+
+
+template <class T>
+Heap<T>::Heap(heapType t) {
+    switch (t) {
+    case MAX:
+        srFunc = max;
+        break;
+    case MIN:
+        srFunc = min;
+        break;
+    default:
+        break;
+    }
+}
+
+template <class T>
+Heap<T>::Heap(T *mas, size_t size, heapType t){
+    data(mas, size);
+    switch (t) {
+    case MAX:
+        srFunc = max;
+        break;
+    case MIN:
+        srFunc = min;
+        break;
+    default:
+        break;
+    }
+    heapify();
+}
+
+
+
+
+#endif  // LIB_HEAP_LIB_HEAP_HEDER_H_

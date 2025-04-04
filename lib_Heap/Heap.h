@@ -57,6 +57,11 @@ private:
     void shift_down(size_t pos);
 };
 
+template<class T>
+bool Heap<T>::isEmpty(){
+    return _data.empty();
+}
+
 template <class T>
 size_t Heap<T>::parent(size_t pos) {
     return (pos - 1) / 2;

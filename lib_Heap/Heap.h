@@ -139,6 +139,14 @@ void Heap<T>::shift_up(size_t pos){
     }
 }
 
+template <class T>
+}
+
+template <class T>
+size_t Heap<T>::find(T val){
+    return _data.find_first(val);
+}
+
 
 template <class T>
 void Heap<T>::heapify(){

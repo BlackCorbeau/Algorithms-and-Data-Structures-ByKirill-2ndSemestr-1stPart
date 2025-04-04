@@ -8,7 +8,7 @@ project(Algorithms-and-Data-Structures-ByKirill-2ndSemestr-1stPart)
 
 include(cmake/function.cmake)         # подхватываем функции, реализованные в файле function.cmake
                                       # для простоты мы объединили наборы команд для создания статической библиотеки
-								      # и для создания исполняемого проекта в отдельные функции
+include_directories(${CMAKE_SOURCE_DIR}/include)# и для создания исполняемого проекта в отдельные функции
 
 add_subdirectory(lib_easy_example)    # подключаем дополнительный CMakeLists.txt из подкаталога с именем lib_easy_example
 add_subdirectory(lib_pair)
@@ -24,10 +24,11 @@ add_subdirectory(lib_queue)
 add_subdirectory(lib_DSU)
 add_subdirectory(lib_Table)
 add_subdirectory(lib_UTable)
-add_subdirectory(lib_BinTreeTable)
-add_subdirectory(lib_BinTree)
 add_subdirectory(lib_UTableDM)
 add_subdirectory(lib_STable)
+add_subdirectory(lib_BinTreeTable)
+add_subdirectory(lib_BinTree)
+add_subdirectory(lib_Heap)
 add_subdirectory(main)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)

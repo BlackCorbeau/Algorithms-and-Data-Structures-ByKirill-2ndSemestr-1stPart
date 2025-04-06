@@ -11,7 +11,6 @@ TEST(DSUTest, MakeSet) {
     }
 }
 
-// Тест на объединение множеств
 TEST(DSUTest, UnionSets) {
     DSU dsu(5);
 
@@ -26,7 +25,6 @@ TEST(DSUTest, UnionSets) {
     EXPECT_NE(dsu.find(0), dsu.find(3));
 }
 
-// Тест на сжатие путей
 TEST(DSUTest, PathCompression) {
     DSU dsu(5);
 
@@ -39,7 +37,6 @@ TEST(DSUTest, PathCompression) {
     EXPECT_EQ(dsu.find(2), dsu.find(3));
 }
 
-// Тест на поддержку рангов
 TEST(DSUTest, UnionByRank) {
     DSU dsu(5);
 

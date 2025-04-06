@@ -30,3 +30,9 @@ TEST(UTableDMTest, EraseKey) {
     EXPECT_THROW(table.find(1), std::logic_error);
 }
 
+TEST(UTableDMTest, FindExistentKey) {
+    UTableDM<int, std::string> table;
+    table.insert(1, "Kika");
+    EXPECT_EQ("Kika", table.find(1));
+}
+

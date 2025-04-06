@@ -29,7 +29,7 @@ TEST(BTTableTest, EraseElement) {
 
     EXPECT_EQ(table.size(), 1);
     EXPECT_EQ(table.find(2), "value2");
-}
+}*/
 
 TEST(BTTableTest, Find) {
     BTTable<int, std::string> table;
@@ -40,7 +40,6 @@ TEST(BTTableTest, Find) {
     EXPECT_EQ(table.find(2), "value2");
 }
 
-// Тест на корректность размера таблицы
 TEST(BTTableTest, Size) {
     BTTable<int, std::string> table;
     EXPECT_EQ(table.size(), 0);

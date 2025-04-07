@@ -145,6 +145,10 @@ void Heap<T>::shift_up(size_t pos){
 }
 
 template <class T>
+void Heap<T>::insert(T val){
+    _data.push_back(val);
+    int pos = _data.find_last(val);
+    shift_up(pos);
 }
 
 template <class T>

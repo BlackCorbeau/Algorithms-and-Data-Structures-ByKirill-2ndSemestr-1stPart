@@ -5,6 +5,7 @@
 
 #include <icecream.hpp>
 #include <iostream>
+#include <stdexcept>
 #include <vector>
 #include <cmath>
 #include <utility>
@@ -50,7 +51,7 @@ public:
 
     void insert(T val);
     size_t find(T val);
-    //void eraise(T val);
+    void eraise(T val);
 private:
     void heapify();
     void shift_up(size_t pos);
@@ -177,5 +178,14 @@ void Heap<T>::printTree(size_t index, int indent) {
     std::cout << _data[index] << "\n";
 
     printTree(left(index), indent + 4);
+}
+
+template<class T>
+void Heap<T>::eraise(T val) {
+    if (isEmpty()) { std::logic_error("Heap is Empty"); }
+    T value = _data[0];
+    _data[0] = _data[_data.size() - 1];
+    _data.remove_by_index(_data.size() - 1);
+    if (_data.size() > 0) { shift_down(0); }
 }
 #endif  // LIB_HEAP_LIB_HEAP_HEDER_H_

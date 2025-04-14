@@ -4,7 +4,98 @@
 #define LIB_HEAP_LIB_HASHTABLE_HEDER_H_
 
 #include <icecream.hpp>
+#include <../lib_pair/lib_pair_heder.h>
+#include <stdexcept>
+#define CAPACITY 15
 
-class HTable
+enum States {EMPTY, DELETED, BUISY};
+
+template <class Tkey, class Tval>
+struct HashNode {
+private:
+    TPair<Tkey, Tval> _val;
+    States _state;
+public:
+    HashNode() : _val(), _state(EMPTY) {}
+    HashNode(Tkey key, Tval val) : _val(key, val), _state(BUISY) {}
+
+    TPair<Tkey, Tval> get_val(){
+        return _val;
+    }
+    void set_val(TPair<Tkey, Tval> val){
+        _val = val;
+    }
+
+    States get_state(){
+        return _state;
+    }
+    void set_state(States state){
+        _state = state;
+    }
+};
+
+template<class Tkey, class Tval>
+class OAHashT {
+private:
+    HashNode<Tkey, Tval> *_data;
+    size_t _capacity;
+    size_t _size;
+public:
+    OAHashT();
+    OAHashT(HashNode<Tkey, Tval> *data, size_t size, size_t capacity): _data(data), _capacity(capacity), _size(size) {};
+    OAHashT(HashNode<Tkey, Tval> data, size_t size);
+
+    size_t get_size() const { return _size; }
+    States get_node_state(size_t index) const { return _data[index].get_state(); }
+    size_t insert(HashNode<Tkey, Tval> val);
+    size_t find();
+    void eraise();
+};
+
+template<class Tkey, class Tval>
+OAHashT<Tkey, Tval>::OAHashT(){
+    _capacity = CAPACITY;
+    _data = new HashNode<Tkey, Tval>[_capacity];
+    _size = 0;
+}
+
+template<class Tkey, class Tval>
+OAHashT<Tkey, Tval>::OAHashT(HashNode<Tkey, Tval> data, size_t size) {
+    _size = size;
+    _capacity = (_size / CAPACITY) * CAPACITY + CAPACITY;
+    _data = new HashNode<Tkey, Tval>[_capacity];
+}
+
+template<class Tkey, class Tval>
+class OAHashT {
+private:
+    HashNode<Tkey, Tval> *_data;
+    size_t _capacity;
+    size_t _size;
+    int (*_hashFunk)(size_t capacity, Tkey &key, size_t iter);
+public:
+    OAHashT();
+    OAHashT(HashNode<Tkey, Tval> *data, size_t size, size_t capacity, int (*HFunk)(size_t capacity, Tkey &key, size_t iter) = hashFunc): _data(data), _capacity(capacity), _size(size), _hashFunk(HFunk) {};
+    OAHashT(HashNode<Tkey, Tval> data, size_t size);
+
+    size_t insert();
+    size_t find();
+    void eraise();
+};
+
+template<class Tkey, class Tval>
+OAHashT<Tkey, Tval>::OAHashT(){
+    _hashFunk = hashFunc;
+    _capacity = CAPACITY;
+    _data = new HashNode<Tkey, Tval>(_capacity);
+}
+
+template<class Tkey, class Tval>
+OAHashT<Tkey, Tval>::OAHashT(HashNode<Tkey, Tval> data, size_t size) {
+    _size = size;
+    _capacity = (_size / CAPACITY) * CAPACITY + CAPACITY;
+    _data = new HashNode<Tkey, Tval>(_capacity);
+    _hashFunk = hashFunc;
+}
 
 #endif  // LIB_HEAP_LIB_HASHTABLE_HEDER_H_

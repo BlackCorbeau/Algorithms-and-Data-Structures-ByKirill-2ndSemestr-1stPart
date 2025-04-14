@@ -60,17 +60,16 @@ public:
 
 template<class Tkey, class Tval>
 OAHashT<Tkey, Tval>::OAHashT(){
-    _hashFunk = hashFunc;
     _capacity = CAPACITY;
-    _data = new HashNode<Tkey, Tval>(_capacity);
+    _data = new HashNode<Tkey, Tval>[_capacity];
+    _size = 0;
 }
 
 template<class Tkey, class Tval>
 OAHashT<Tkey, Tval>::OAHashT(HashNode<Tkey, Tval> data, size_t size) {
     _size = size;
     _capacity = (_size / CAPACITY) * CAPACITY + CAPACITY;
-    _data = new HashNode<Tkey, Tval>(_capacity);
-    _hashFunk = hashFunc;
+    _data = new HashNode<Tkey, Tval>[_capacity];
 }
 
 template<class Tkey, class Tval>

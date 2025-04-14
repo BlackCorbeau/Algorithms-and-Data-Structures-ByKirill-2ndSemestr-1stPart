@@ -53,10 +53,6 @@ public:
 
     size_t get_size() const { return _size; }
     States get_node_state(size_t index) const { return _data[index].get_state(); }
-    int hashFunc(const Tkey &key, size_t iter) {
-        return ((std::hash<Tkey>{}(key) % _capacity + _capacity) + iter * iter) % _capacity;
-    }
-
     size_t insert(HashNode<Tkey, Tval> val);
     size_t find();
     void eraise();
@@ -75,6 +71,9 @@ OAHashT<Tkey, Tval>::OAHashT(HashNode<Tkey, Tval> data, size_t size) {
     _capacity = (_size / CAPACITY) * CAPACITY + CAPACITY;
     _data = new HashNode<Tkey, Tval>(_capacity);
     _hashFunk = hashFunc;
+}
+
+template<class Tkey, class Tval>
 }
 
 #endif  // LIB_HEAP_LIB_HASHTABLE_HEDER_H_

@@ -8,9 +8,9 @@
 #include "../lib_Heap/Heap.h"
 
 template <class T>
-void heapSort(T* array, size_t size, heapType type) {
+void heapSort(T* array, size_t size, bool (*Func)(T val1, T val2)) {
 
-    Heap<T> heap(array, size, type);
+    Heap<T> heap(array, size, Func);
 
     for (int i = size - 1; i >= 0; i--) {
         array[i] = heap.top();
@@ -21,12 +21,13 @@ void heapSort(T* array, size_t size, heapType type) {
 int main() {
     int arr[] = {12, 11, 13, 5, 6, 7};
     int n = sizeof(arr)/sizeof(arr[0]);
-    heapSort(arr, n, MAX);
+    heapSort(arr, n, min);
     for (int i = 0; i < n; i++) {
         std::cout << arr[i] << " ";
     }
+
     std::cout << "\n";
-    heapSort(arr, n, MIN);
+    heapSort(arr, n, max);
     for (int i = 0; i < n; i++) {
         std::cout << arr[i] << " ";
     }

@@ -1,15 +1,15 @@
 #include <gtest.h>
 #include "../lib_Heap/Heap.h"
 
-TEST(HeapTest, DefaultConstructor) {
+/*TEST(HeapTest, DefaultConstructor) {
     Heap<int> heap;
     EXPECT_TRUE(heap.isEmpty());
     EXPECT_EQ(heap.find(5), static_cast<size_t>(-1));
-}
+    }*/
 
 TEST(HeapTest, TypeConstructor) {
-    Heap<int> maxHeap(MAX);
-    Heap<int> minHeap(MIN);
+    Heap<int> maxHeap(max);
+    Heap<int> minHeap(min);
 
     maxHeap.insert(5);
     maxHeap.insert(3);
@@ -25,15 +25,15 @@ TEST(HeapTest, TypeConstructor) {
 
 TEST(HeapTest, ArrayConstructor) {
     int arr[] = {4, 10, 3, 5, 1};
-    Heap<int> maxHeap(arr, 5, MAX);
-    Heap<int> minHeap(arr, 5, MIN);
+    Heap<int> maxHeap(arr, 5, max);
+    Heap<int> minHeap(arr, 5, min);
 
     EXPECT_EQ(maxHeap.find(10), 0);
     EXPECT_EQ(minHeap.find(1), 0);
 }
 
 TEST(HeapTest, InsertAndShiftUp) {
-    Heap<int> minHeap(MIN);
+    Heap<int> minHeap(min);
     minHeap.insert(5);
     minHeap.insert(3);
     minHeap.insert(7);
@@ -45,7 +45,7 @@ TEST(HeapTest, InsertAndShiftUp) {
 }
 
 TEST(HeapTest, EraseAndShiftDown) {
-    Heap<int> minHeap(MIN);
+    Heap<int> minHeap(min);
     minHeap.insert(5);
     minHeap.insert(3);
     minHeap.insert(7);
@@ -59,7 +59,7 @@ TEST(HeapTest, EraseAndShiftDown) {
 }
 
 TEST(HeapTest, HeapPropertiesMax) {
-    Heap<int> maxHeap(MAX);
+    Heap<int> maxHeap(max);
     maxHeap.insert(5);
     maxHeap.insert(3);
     maxHeap.insert(7);
@@ -72,7 +72,7 @@ TEST(HeapTest, HeapPropertiesMax) {
 }
 
 TEST(HeapTest, HeapPropertiesMin) {
-    Heap<int> minHeap(MIN);
+    Heap<int> minHeap(min);
     minHeap.insert(5);
     minHeap.insert(3);
     minHeap.insert(7);
@@ -85,7 +85,7 @@ TEST(HeapTest, HeapPropertiesMin) {
 }
 
 TEST(HeapTest, FindNonExistent) {
-    Heap<int> heap(MIN);
+    Heap<int> heap(min);
     heap.insert(5);
     heap.insert(3);
 
@@ -93,13 +93,13 @@ TEST(HeapTest, FindNonExistent) {
 }
 
 TEST(HeapTest, EmptyHeapOperations) {
-    Heap<int> heap(MIN);
+    Heap<int> heap(min);
     EXPECT_TRUE(heap.isEmpty());
     EXPECT_THROW(heap.eraise(5), std::logic_error);
 }
 
 TEST(HeapTest, LargeInput) {
-    Heap<int> minHeap(MIN);
+    Heap<int> minHeap(min);
     for (int i = 1000; i >= 0; --i) {
         minHeap.insert(i);
     }

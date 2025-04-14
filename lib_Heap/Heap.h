@@ -3,6 +3,7 @@
 #ifndef LIB_HEAP_LIB_HEAP_HEDER_H_
 #define LIB_HEAP_LIB_HEAP_HEDER_H_
 
+#include <functional>
 #include <icecream.hpp>
 #include <iostream>
 #include <stdexcept>
@@ -15,23 +16,25 @@
 enum heapType { MAX, MIN };
 
 template <class T>
+bool max(T val1, T val2) {
+    return val1 > val2;
+}
+
+template <class T>
+bool min(T val1, T val2) {
+    return val1 < val2;
+}
+
+template <class T>
 class Heap {
 private:
     DMassiv<T> _data;
-    heapType type;
-
-    bool max(T val1, T val2) {
-        return val1 > val2;
-    }
-
-    bool min(T val1, T val2) {
-        return val1 < val2;
-    }
+    bool (*SrFunc)(T val1, T val2);
 
 public:
-    Heap() {type = MIN;}
-    Heap(heapType t): type(t), _data() {}
-    Heap(T *mas, size_t size, heapType t): _data(mas, size), type(t){ heapify(); }
+    Heap() {SrFunc = min;}
+    Heap(bool (*Funk)(T val1, T val2) = min): SrFunc(Funk), _data() {}
+    Heap(T *mas, size_t size, bool (*Funk)(T val1, T val2) = min): _data(mas, size), SrFunc(Funk) { heapify(); }
 
     size_t left(size_t pos);
     size_t right(size_t pos);
@@ -81,67 +84,31 @@ size_t Heap<T>::left(size_t pos){
 template <class T>
 void Heap<T>::shift_down(size_t pos){
     size_t extremum = pos;
-    switch (type) {
-    case MIN:
-        while (true) {
-            size_t left_child = left(pos);
-            size_t right_child = right(pos);
+    while (true) {
+        size_t left_child = left(pos);
+        size_t right_child = right(pos);
 
-            if (left_child < _data.size() && min(_data[left_child], _data[extremum])) {
-                extremum = left_child;
-            }
-            if (right_child < _data.size() && min(_data[right_child], _data[extremum])) {
-                extremum = right_child;
-            }
-            if (extremum == pos) {
-                break;
-            }
-
-            std::swap(_data[pos], _data[extremum]);
-            pos = extremum;
+        if (left_child < _data.size() && SrFunc(_data[left_child], _data[extremum])) {
+            extremum = left_child;
         }
-        break;
-    case MAX:
-        while (true) {
-            size_t left_child = left(pos);
-            size_t right_child = right(pos);
-
-            if (left_child < _data.size() && max(_data[left_child], _data[extremum])) {
-                extremum = left_child;
-            }
-            if (right_child < _data.size() && max(_data[right_child], _data[extremum])) {
-                extremum = right_child;
-            }
-            if (extremum == pos) {
-                break;
-            }
-
-            std::swap(_data[pos], _data[extremum]);
-            pos = extremum;
+        if (right_child < _data.size() && SrFunc(_data[right_child], _data[extremum])) {
+            extremum = right_child;
         }
-        break;
-    default:
-        std::logic_error("heapType is not initialized");
-        break;
+        if (extremum == pos) {
+            break;
+        }
+
+        std::swap(_data[pos], _data[extremum]);
+        pos = extremum;
     }
 }
 
 template <class T>
 void Heap<T>::shift_up(size_t pos){
     size_t _pos = pos;
-
-    if (type == MIN) {
-        while (parent(_pos) < _data.size() && min(_data[_pos], _data[parent(_pos)]) == true) {
-            std::swap(_data[parent(_pos)], _data[_pos]);
-            _pos = parent(_pos);
-        }
-    } else if (type == MAX) {
-        while (parent(_pos) < _data.size() && max(_data[_pos], _data[parent(_pos)]) == true) {
-            std::swap(_data[parent(_pos)], _data[_pos]);
-            _pos = parent(_pos);
-        }
-    } else {
-        throw std::logic_error("heapType is not initialized");
+    while (parent(_pos) < _data.size() && SrFunc(_data[_pos], _data[parent(_pos)]) == true) {
+        std::swap(_data[parent(_pos)], _data[_pos]);
+        _pos = parent(_pos);
     }
 }
 

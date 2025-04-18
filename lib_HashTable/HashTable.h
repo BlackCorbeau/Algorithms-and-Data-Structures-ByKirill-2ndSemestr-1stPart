@@ -73,6 +73,21 @@ OAHashT<Tkey, Tval>::OAHashT(HashNode<Tkey, Tval> data, size_t size) {
 }
 
 template<class Tkey, class Tval>
+size_t OAHashT<Tkey, Tval>::insert(HashNode<Tkey, Tval> val) {
+    if (_size >= _capacity) {
+        return static_cast<size_t>(-1);
+    }
+    size_t i = 0;
+    while (_data[hashFunc(val.get_val().first(), i)].get_state() == BUISY && i < _capacity) {
+        i++;
+    }
+    if (i >= _capacity) {
+        return static_cast<size_t>(-1);
+    }
+    _data[hashFunc(val.get_val().first(), i)].set_val(val.get_val());
+    _data[hashFunc(val.get_val().first(), i)].set_state(BUISY);
+    _size++;
+    return hashFunc(val.get_val().first(), i);
 }
 
 #endif  // LIB_HEAP_LIB_HASHTABLE_HEDER_H_

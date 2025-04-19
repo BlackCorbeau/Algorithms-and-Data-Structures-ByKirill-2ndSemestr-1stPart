@@ -119,6 +119,29 @@ HashNode<Tkey,Tval>* OAHashT<Tkey, Tval>::find(Tkey key) {
 
     return nullptr;
 }
+
+template <class Tkey, class Tval>
+void OAHashT<Tkey, Tval>::eraise(Tkey key) {
+    size_t hash = hashFunc(key);
+    size_t iter = 0;
+    size_t index;
+
+    do {
+        index = probe(hash, iter);
+        if (_data[index].get_state() == EMPTY) {
+            return;
+        }
+        if (_data[index].get_state() == BUISY &&
+            _data[index].get_val().first() == key) {
+            _data[index].set_state(DELETED);
+            _size --;
+            return;
+        }
+        iter++;
+    } while (iter < _capacity);
+    return;
+}
+
 template <class Tkey, class Tval>
 void OAHashT<Tkey, Tval>::print() const {
     std::cout << "Hash Table (size: " << _size << ", capacity: " << _capacity << "):\n";

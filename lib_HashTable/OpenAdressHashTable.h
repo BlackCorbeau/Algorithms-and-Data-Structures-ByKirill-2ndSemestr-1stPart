@@ -47,6 +47,14 @@ public:
     OAHashT(HashNode<Tkey, Tval> *data, size_t size, size_t capacity): _data(data), _capacity(capacity), _size(size) {};
     OAHashT(HashNode<Tkey, Tval> data, size_t size);
 
+    size_t hashFunc(const Tkey& key) {
+        return (std::hash<Tkey>{}(key) % _capacity);
+    }
+
+    size_t probe(size_t hash, size_t iter) {
+        return (hash + iter * iter) % _capacity;
+    }
+
     size_t get_size() const { return _size; }
     States get_node_state(size_t index) const { return _data[index].get_state(); }
     size_t insert(HashNode<Tkey, Tval> val);

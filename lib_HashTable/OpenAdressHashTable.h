@@ -77,3 +77,25 @@ OAHashT<Tkey, Tval>::OAHashT(HashNode<Tkey, Tval> data, size_t size) {
     _data = new HashNode<Tkey, Tval>[_capacity];
 }
 
+template<class Tkey, class Tval>
+size_t OAHashT<Tkey, Tval>::insert(HashNode<Tkey, Tval> val) {
+    if (_size >= _capacity) {
+        return static_cast<size_t>(-1);
+    }
+    size_t hash = hashFunc(val.get_val().first());
+    size_t iter = 0;
+    size_t index;
+
+    do {
+        index = probe(hash, iter);
+        if (_data[index].get_state() != BUISY) {
+            _data[index].set_val(val.get_val());
+            _data[index].set_state(BUISY);
+            _size++;
+            return index;
+        }
+        iter++;
+    } while (iter < _capacity);
+    return static_cast<size_t>(-1);
+}
+

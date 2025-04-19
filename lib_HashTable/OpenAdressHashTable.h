@@ -47,15 +47,12 @@ public:
     OAHashT(HashNode<Tkey, Tval> *data, size_t size, size_t capacity): _data(data), _capacity(capacity), _size(size) {};
     OAHashT(HashNode<Tkey, Tval> data, size_t size);
 
-    int hashFunc(const Tkey &key, size_t iter) {
-        return ((std::hash<Tkey>{}(key) % _capacity + _capacity) + iter * iter) % _capacity;
-    }
-
     size_t get_size() const { return _size; }
     States get_node_state(size_t index) const { return _data[index].get_state(); }
     size_t insert(HashNode<Tkey, Tval> val);
-    size_t find();
-    void eraise();
+    HashNode<Tkey,Tval>* find(Tkey key);
+    void eraise(Tkey key);
+    void print() const;
 };
 
 template<class Tkey, class Tval>
@@ -72,22 +69,3 @@ OAHashT<Tkey, Tval>::OAHashT(HashNode<Tkey, Tval> data, size_t size) {
     _data = new HashNode<Tkey, Tval>[_capacity];
 }
 
-template<class Tkey, class Tval>
-size_t OAHashT<Tkey, Tval>::insert(HashNode<Tkey, Tval> val) {
-    if (_size >= _capacity) {
-        return static_cast<size_t>(-1);
-    }
-    size_t i = 0;
-    while (_data[hashFunc(val.get_val().first(), i)].get_state() == BUISY && i < _capacity) {
-        i++;
-    }
-    if (i >= _capacity) {
-        return static_cast<size_t>(-1);
-    }
-    _data[hashFunc(val.get_val().first(), i)].set_val(val.get_val());
-    _data[hashFunc(val.get_val().first(), i)].set_state(BUISY);
-    _size++;
-    return hashFunc(val.get_val().first(), i);
-}
-
-#endif  // LIB_HEAP_LIB_HASHTABLE_HEDER_H_

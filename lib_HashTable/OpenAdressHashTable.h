@@ -100,6 +100,26 @@ size_t OAHashT<Tkey, Tval>::insert(HashNode<Tkey, Tval> val) {
 }
 
 template <class Tkey, class Tval>
+HashNode<Tkey,Tval>* OAHashT<Tkey, Tval>::find(Tkey key) {
+    size_t hash = hashFunc(key);
+    size_t iter = 0;
+    size_t index;
+
+    do {
+        index = probe(hash, iter);
+        if (_data[index].get_state() == EMPTY && _data[index].get_state() == DELETED) {
+            return nullptr;
+        }
+        if (_data[index].get_state() == BUISY &&
+            _data[index].get_val().first() == key) {
+            return &_data[index];
+        }
+        iter++;
+    } while (iter < _capacity);
+
+    return nullptr;
+}
+template <class Tkey, class Tval>
 void OAHashT<Tkey, Tval>::print() const {
     std::cout << "Hash Table (size: " << _size << ", capacity: " << _capacity << "):\n";
     std::cout << "| Index | Key  | Value | State  |\n";

@@ -99,3 +99,28 @@ size_t OAHashT<Tkey, Tval>::insert(HashNode<Tkey, Tval> val) {
     return static_cast<size_t>(-1);
 }
 
+template <class Tkey, class Tval>
+void OAHashT<Tkey, Tval>::print() const {
+    std::cout << "Hash Table (size: " << _size << ", capacity: " << _capacity << "):\n";
+    std::cout << "| Index | Key  | Value | State  |\n";
+    std::cout << "|-------|------|-------|--------|\n";
+
+    for (size_t i = 0; i < _capacity; ++i) {
+        std::cout << "| " << i << "\t| ";
+        if (_data[i].get_state() == BUISY) {
+            std::cout << _data[i].get_val().first() << " | "
+                      << _data[i].get_val().second() << " | ";
+        } else {
+            std::cout << " -  |   -   | ";
+        }
+
+        switch (_data[i].get_state()) {
+            case EMPTY: std::cout << "EMPTY  |\n"; break;
+            case DELETED: std::cout << "DELETED|\n"; break;
+            case BUISY: std::cout << "BUISY  |\n"; break;
+        }
+    }
+    std::cout << std::endl;
+}
+
+#endif  // LIB_HEAP_LIB_HASHTABLE_HEDER_H_

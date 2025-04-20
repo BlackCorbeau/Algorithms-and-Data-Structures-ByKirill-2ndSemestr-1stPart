@@ -52,6 +52,10 @@ public:
         _data = new HashList<Tkey,Tval>[_capacity];
     };
 
+    size_t hashFunc(const Tkey& key) {
+        return (std::hash<Tkey>{}(key) % _capacity);
+    }
+
     size_t insert(HashList<Tkey, Tval> val);
     HashList<Tkey,Tval>* find(Tkey key);
     void eraise(Tkey key);

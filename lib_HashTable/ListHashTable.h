@@ -66,4 +66,28 @@ size_t ListHashT<Tkey,Tval>::insert(TList<TPair<Tkey, Tval>> val) {
     return index;
 }
 
+template<class Tkey, class Tval>
+size_t ListHashT<Tkey,Tval>::insert(TPair<Tkey, Tval> val) {
+    size_t index = hashFunc(val.first());
+
+    if (_data[index].empty()) {
+        _data[index].push_back(val);
+    } else {
+        bool key_exists = false;
+        for (auto it = _data[index].begin(); it != _data[index].end(); ++it) {
+            if (it->first() == val.first()) {
+                it->second() = val.second();
+                key_exists = true;
+                break;
+            }
+        }
+        if (!key_exists) {
+            _data[index].push_back(val);
+        }
+    }
+
+    _size++;
+    return index;
+}
+
 #endif  // LIB_HEAP_LIB_HASHTABLE_HEDER_H_

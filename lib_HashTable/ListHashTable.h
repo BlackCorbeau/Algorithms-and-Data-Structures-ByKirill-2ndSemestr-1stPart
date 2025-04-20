@@ -37,4 +37,17 @@ public:
     }
 };
 
+template<class Tkey, class Tval>
+class ListHashT {
+private:
+    HashList<Tkey, Tval>* _data;
+    size_t _capacity;
+    size_t _size;
+public:
+
+    size_t insert(HashList<Tkey, Tval> val);
+    HashList<Tkey,Tval>* find(Tkey key);
+    void eraise(Tkey key);
+};
+
 #endif  // LIB_HEAP_LIB_HASHTABLE_HEDER_H_

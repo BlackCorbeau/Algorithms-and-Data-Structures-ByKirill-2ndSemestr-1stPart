@@ -31,6 +31,7 @@ public:
     }
 
     size_t insert(TList<TPair<Tkey, Tval>> val);
+    size_t insert(TPair<Tkey, Tval> val);
     TList<TPair<Tkey, Tval>>* find(Tkey key);
     void eraise(Tkey key);
 };

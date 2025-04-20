@@ -36,4 +36,34 @@ public:
     void eraise(Tkey key);
 };
 
+template<class Tkey, class Tval>
+size_t ListHashT<Tkey,Tval>::insert(TList<TPair<Tkey, Tval>> val) {
+    if (val.empty()) {
+        throw std::invalid_argument("Cannot insert empty list into hash table");
+    }
+
+    size_t index = hashFunc(val[0].first());
+
+    if (_data[index].empty()) {
+        _data[index] = val;
+    } else {
+        for (const auto& pair : val) {
+            bool key_exists = false;
+            for (auto it = _data[index].begin(); it != _data[index].end(); ++it) {
+                if (it->first() == pair.first()) {
+                    it->second() = pair.second();
+                    key_exists = true;
+                    break;
+                }
+            }
+            if (!key_exists) {
+                _data[index].push_back(pair);
+            }
+        }
+    }
+
+    _size += val.size();
+    return index;
+}
+
 #endif  // LIB_HEAP_LIB_HASHTABLE_HEDER_H_

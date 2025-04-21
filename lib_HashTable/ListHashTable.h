@@ -5,9 +5,10 @@
 
 #include <cstddef>
 #include <functional>
-#include <icecream.hpp>
+#include "icecream.hpp"
 #include "../lib_pair/lib_pair_heder.h"
 #include "../lib_list/List.h"
+#include <iostream>
 #include <stdexcept>
 #define CAPACITY 15
 
@@ -18,21 +19,26 @@ private:
     size_t _capacity;
     size_t _size;
 public:
-    ListHashT(): _data(), _capacity(CAPACITY), _size(0){};
-    ListHashT(TList<TPair<Tkey, Tval>>* *data, size_t size, size_t capacity): _data(data), _capacity(capacity), _size(size) {};
+    ListHashT() : _capacity(CAPACITY), _size(0) { _data = new TList<TPair<Tkey, Tval>>[_capacity]; };
+    ListHashT(TList<TPair<Tkey, Tval>>* data, size_t size, size_t capacity): _data(data), _capacity(capacity), _size(size) {};
     ListHashT(TList<TPair<Tkey, Tval>>* data, size_t size) {
         _size = size;
         _capacity = (_size / CAPACITY) * CAPACITY + CAPACITY;
         _data = new TList<TPair<Tkey, Tval>>[_capacity];
     };
 
+    ~ListHashT() {
+        delete[] _data;
+    }
+
     size_t hashFunc(const Tkey& key) {
         return (std::hash<Tkey>{}(key) % _capacity);
     }
 
-    size_t insert(TList<TPair<Tkey, Tval>> val);
-    size_t insert(TPair<Tkey, Tval> val);
-    TList<TPair<Tkey, Tval>>* find(Tkey key);
+    size_t size() { return _size; }
+    size_t capacity() { return _capacity; }
+    void insert(Tkey key, Tval val);
+    Tval find(Tkey key);
     void eraise(Tkey key);
 };
 

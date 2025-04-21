@@ -69,28 +69,18 @@ Tval ListHashT<Tkey, Tval>::find(Tkey key){
     return Tval();
 }
 
-template<class Tkey, class Tval>
-size_t ListHashT<Tkey,Tval>::insert(TPair<Tkey, Tval> val) {
-    size_t index = hashFunc(val.first());
+template <class Tkey, class Tval>
+void ListHashT<Tkey, Tval>::eraise(Tkey key){
+    size_t index = hashFunc(key);
 
-    if (_data[index].empty()) {
-        _data[index].push_back(val);
-    } else {
-        bool key_exists = false;
-        for (auto it = _data[index].begin(); it != _data[index].end(); ++it) {
-            if (it->first() == val.first()) {
-                it->second() = val.second();
-                key_exists = true;
-                break;
-            }
-        }
-        if (!key_exists) {
-            _data[index].push_back(val);
+    for (int i = _data[index].size() - 1; i >= 0 ; i--) {
+        if (_data[index][i].first() == key) {
+            _data[index].pop_pos(i);
+            _size --;
+        } else if (_data[index].empty() == true) {
+            return;
         }
     }
-
-    _size++;
-    return index;
 }
 
 #endif  // LIB_HEAP_LIB_HASHTABLE_HEDER_H_

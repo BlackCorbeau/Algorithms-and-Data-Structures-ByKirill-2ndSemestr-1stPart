@@ -42,6 +42,7 @@ public:
     void eraise(Tkey key);
 };
 
+
 template<class Tkey, class Tval>
 void ListHashT<Tkey,Tval>::insert(Tkey key, Tval val) {
     TPair<Tkey, Tval> _val(key, val);
@@ -56,28 +57,16 @@ void ListHashT<Tkey,Tval>::insert(Tkey key, Tval val) {
     }
 }
 
-    size_t index = hashFunc(val[0].first());
+template <class Tkey, class Tval>
+Tval ListHashT<Tkey, Tval>::find(Tkey key){
+    size_t index = hashFunc(key);
 
-    if (_data[index].empty()) {
-        _data[index] = val;
-    } else {
-        for (const auto& pair : val) {
-            bool key_exists = false;
-            for (auto it = _data[index].begin(); it != _data[index].end(); ++it) {
-                if (it->first() == pair.first()) {
-                    it->second() = pair.second();
-                    key_exists = true;
-                    break;
-                }
-            }
-            if (!key_exists) {
-                _data[index].push_back(pair);
-            }
+    for (auto& pair : _data[index]) {
+        if (pair.first() == key) {
+            return pair.second();
         }
     }
-
-    _size += val.size();
-    return index;
+    return Tval();
 }
 
 template<class Tkey, class Tval>

@@ -43,10 +43,18 @@ public:
 };
 
 template<class Tkey, class Tval>
-size_t ListHashT<Tkey,Tval>::insert(TList<TPair<Tkey, Tval>> val) {
-    if (val.empty()) {
-        throw std::invalid_argument("Cannot insert empty list into hash table");
+void ListHashT<Tkey,Tval>::insert(Tkey key, Tval val) {
+    TPair<Tkey, Tval> _val(key, val);
+    size_t index = hashFunc(key);
+    if (_size >= _capacity) {
+        return;
     }
+    if(_data[index].find(_val) == nullptr){
+        _data[index].push_back(_val);
+        _size++;
+        return;
+    }
+}
 
     size_t index = hashFunc(val[0].first());
 

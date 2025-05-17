@@ -71,7 +71,7 @@ template <class T>
 class TList {
     class TIterator {
         TNode<T>* _node;
-        
+
     public:
         TIterator(TNode<T>* node = nullptr) : _node(node) {}
 
@@ -357,7 +357,7 @@ T& TList<T>::operator[](int index) {
         counter++;
         current = current->get_pnext();
     }
-    throw std::out_of_range("Index out of range");
+    throw std::out_of_range("Index out of rang");
 }
 
 template <class T>
@@ -373,10 +373,10 @@ void TList<T>::print_list() const {
 template <class T>
 int TList<T>::size() {
     int _size = 0;
-    TNode<T> node = this->_head;
-    while (node != nullptr) {
-        _size ++;
-        node.get_pnext();
+    TNode<T>* current = _head;
+    while (current != nullptr) {
+        _size++;
+        current = current->get_pnext();
     }
     return _size;
 }

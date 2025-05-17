@@ -80,7 +80,7 @@ OAHashT<Tkey, Tval>::OAHashT(HashNode<Tkey, Tval> data, size_t size) {
 template<class Tkey, class Tval>
 size_t OAHashT<Tkey, Tval>::insert(HashNode<Tkey, Tval> val) {
     if (_size >= _capacity) {
-        return static_cast<size_t>(-1);
+        return static_cast<size_t>(-1); //Исключение
     }
     size_t hash = hashFunc(val.get_val().first());
     size_t iter = 0;

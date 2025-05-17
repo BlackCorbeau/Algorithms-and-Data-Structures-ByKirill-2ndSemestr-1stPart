@@ -56,7 +56,6 @@ void OrderedTable<Tkey, Tval>::erase(Tkey key) {
     throw std::out_of_range("Key not found in the table.");
 }
 
-// Добавить Бинарный поиск
 template <class Tkey, class Tval>
 Tval OrderedTable<Tkey, Tval>::find(Tkey key) {
     size_t left = 0;

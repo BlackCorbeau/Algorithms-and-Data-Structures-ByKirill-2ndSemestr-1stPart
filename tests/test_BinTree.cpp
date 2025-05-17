@@ -28,39 +28,55 @@
         EXPECT_EQ(tree.Search(0), nullptr);
     }
 
-    TEST(BinTreeTest, RemoveLeafNodes) {
+    TEST(BinTreeTest, RemoveFromEmptyTreeThrows) {
+        BinTree<int> tree;
+        EXPECT_THROW(tree.Remove(5), std::logic_error);
+    }
+
+    TEST(BinTreeTest, RemoveNonExistentValueLeftSubtreeThrows) {
+        BinTree<int> tree;
+        tree.Insert(5);
+        tree.Insert(3);
+
+        EXPECT_THROW(tree.Remove(1), std::logic_error);
+        EXPECT_NE(tree.Search(5), nullptr);
+        EXPECT_NE(tree.Search(3), nullptr);
+    }
+
+    TEST(BinTreeTest, RemoveNonExistentValueRightSubtreeThrows) {
+        BinTree<int> tree;
+        tree.Insert(5);
+        tree.Insert(7);
+
+        EXPECT_THROW(tree.Remove(9), std::logic_error);
+        EXPECT_NE(tree.Search(5), nullptr);
+        EXPECT_NE(tree.Search(7), nullptr);
+    }
+
+    TEST(BinTreeTest, RemoveNodeWithNoLeftChild) {
         BinTree<int> tree;
         tree.Insert(5);
         tree.Insert(3);
         tree.Insert(7);
+        tree.Insert(6);
 
-        tree.Remove(3);
-        EXPECT_EQ(tree.Search(3), nullptr);
-        EXPECT_NE(tree.Search(5), nullptr);
-        EXPECT_NE(tree.Search(7), nullptr);
-
-        tree.Remove(7);
+        EXPECT_NO_THROW(tree.Remove(7));
         EXPECT_EQ(tree.Search(7), nullptr);
+        EXPECT_NE(tree.Search(6), nullptr);
         EXPECT_NE(tree.Search(5), nullptr);
+        EXPECT_NE(tree.Search(3), nullptr);
     }
 
-    TEST(BinTreeTest, RemoveNodeWithOneChild) {
+    TEST(BinTreeTest, RemoveNodeWithNoRightChild) {
         BinTree<int> tree;
         tree.Insert(5);
         tree.Insert(3);
         tree.Insert(2);
-        tree.Insert(7);
-        tree.Insert(6);
 
-        tree.Remove(3);
+        EXPECT_NO_THROW(tree.Remove(3));
         EXPECT_EQ(tree.Search(3), nullptr);
         EXPECT_NE(tree.Search(2), nullptr);
         EXPECT_NE(tree.Search(5), nullptr);
-
-
-        tree.Remove(7);
-        EXPECT_EQ(tree.Search(7), nullptr);
-        EXPECT_NE(tree.Search(6), nullptr);
     }
 
     TEST(BinTreeTest, RemoveNodeWithTwoChildren) {
@@ -73,18 +89,73 @@
         tree.Insert(6);
         tree.Insert(8);
 
-        tree.Remove(5);
+        EXPECT_NO_THROW(tree.Remove(5));
         EXPECT_EQ(tree.Search(5), nullptr);
+
+        TrNode<int>* newRoot = tree.Search(6);
+        ASSERT_NE(newRoot, nullptr);
 
         EXPECT_NE(tree.Search(3), nullptr);
         EXPECT_NE(tree.Search(2), nullptr);
         EXPECT_NE(tree.Search(4), nullptr);
         EXPECT_NE(tree.Search(7), nullptr);
-        EXPECT_NE(tree.Search(6), nullptr);
         EXPECT_NE(tree.Search(8), nullptr);
 
-        EXPECT_NE(tree.Search(6)->getLeft(), nullptr);
-        EXPECT_NE(tree.Search(6)->getRight(), nullptr);
+        EXPECT_EQ(newRoot->getLeft()->getValue(), 3);
+        EXPECT_EQ(newRoot->getRight()->getValue(), 7);
+    }
+
+    TEST(BinTreeTest, RemoveRootWithOnlyLeftChild) {
+        BinTree<int> tree;
+        tree.Insert(5);
+        tree.Insert(3);
+
+        EXPECT_NO_THROW(tree.Remove(5));
+        EXPECT_EQ(tree.Search(5), nullptr);
+        EXPECT_NE(tree.Search(3), nullptr);
+    }
+
+    TEST(BinTreeTest, RemoveRootWithOnlyRightChild) {
+        BinTree<int> tree;
+        tree.Insert(5);
+        tree.Insert(7);
+
+        EXPECT_NO_THROW(tree.Remove(5));
+        EXPECT_EQ(tree.Search(5), nullptr);
+        EXPECT_NE(tree.Search(7), nullptr);
+    }
+
+    TEST(BinTreeTest, RemoveLeafNode) {
+        BinTree<int> tree;
+        tree.Insert(5);
+        tree.Insert(3);
+        tree.Insert(7);
+
+        EXPECT_NO_THROW(tree.Remove(3));
+        EXPECT_NO_THROW(tree.Remove(7));
+        EXPECT_EQ(tree.Search(3), nullptr);
+        EXPECT_EQ(tree.Search(7), nullptr);
+        EXPECT_NE(tree.Search(5), nullptr);
+    }
+
+    TEST(BinTreeTest, RemoveNodeWithTwoChildrenSuccessorHasRightChild) {
+        BinTree<int> tree;
+        tree.Insert(5);
+        tree.Insert(3);
+        tree.Insert(7);
+        tree.Insert(6);
+        tree.Insert(8);
+        tree.Insert(9);
+
+        EXPECT_NO_THROW(tree.Remove(5));
+        EXPECT_EQ(tree.Search(5), nullptr);
+
+        TrNode<int>* newRoot = tree.Search(6);
+        ASSERT_NE(newRoot, nullptr);
+
+        EXPECT_EQ(newRoot->getLeft()->getValue(), 3);
+        EXPECT_EQ(newRoot->getRight()->getValue(), 7);
+        EXPECT_EQ(tree.Search(7)->getRight()->getValue(), 8);
     }
 
     TEST(BinTreeTest, CopyConstructor) {

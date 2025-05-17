@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <stdexcept>
 template <typename T>
 class TrNode {
 private:
@@ -76,6 +77,9 @@ public:
     }
 
     void Remove(T value) {
+        if(root == nullptr) {
+            throw std::logic_error("Tree is Empty");
+        }
         root = RemoveRecursive(root, value);
     }
 
@@ -131,7 +135,7 @@ TrNode<T>* BinTree<T>::SearchRecursive(TrNode<T>* node, T value) const {
 template <typename T>
 TrNode<T>* BinTree<T>::RemoveRecursive(TrNode<T>* node, T value) {
     if (node == nullptr) {
-        return nullptr;
+        throw std::logic_error("Key not found");
     } else if (value < node->getValue()) {
         node->setLeft(RemoveRecursive(node->getLeft(), value));
         return node;

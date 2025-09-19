@@ -6,6 +6,8 @@
 
 #include "../lib_CString/CString.h"
 #include "../lib_list/List.h"
+#include <cstdlib>
+#include <ctime>
 
 bool is_correct(const CString* exp);
 

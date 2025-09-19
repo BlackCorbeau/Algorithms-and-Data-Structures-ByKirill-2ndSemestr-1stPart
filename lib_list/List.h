@@ -71,7 +71,7 @@ template <class T>
 class TList {
     class TIterator {
         TNode<T>* _node;
-        
+
     public:
         TIterator(TNode<T>* node = nullptr) : _node(node) {}
 
@@ -139,6 +139,8 @@ public:
     T& operator[](int index);
 
     void print_list() const;
+
+    int size();
 
     iterator begin() {
         return iterator(_head);
@@ -355,7 +357,7 @@ T& TList<T>::operator[](int index) {
         counter++;
         current = current->get_pnext();
     }
-    throw std::out_of_range("Index out of range");
+    throw std::out_of_range("Index out of rang");
 }
 
 template <class T>
@@ -368,5 +370,15 @@ void TList<T>::print_list() const {
     std::cout << std::endl;
 }
 
+template <class T>
+int TList<T>::size() {
+    int _size = 0;
+    TNode<T>* current = _head;
+    while (current != nullptr) {
+        _size++;
+        current = current->get_pnext();
+    }
+    return _size;
+}
 
 #endif  // LIB_LIST_LIB_LIST_HEDER_H_

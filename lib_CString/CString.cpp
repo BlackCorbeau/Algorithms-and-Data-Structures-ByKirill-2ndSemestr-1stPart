@@ -86,24 +86,6 @@ void CString::print() const noexcept {
     std::cout << "\n";
 }
 
-Status CString::check_overfull() const noexcept {
-    Status stat = EMPTY;
-    if (_size > 0) {
-        stat = NOT_FULL;
-        if (_capacity + STEP_CAPACITY == _max_capacity) {
-            stat = CAPACITY_FULL_IN_ONE_STEP;
-        }
-        if (_capacity == _max_capacity) {
-            stat = CAPACITY_FULL;
-        }
-        if (_size == _max_capacity) {
-            stat = SIZE_FULL;
-        }
-        return stat;
-    }
-    return stat;
-}
-
 size_t CString::size() const noexcept {
     return _size;
 }
@@ -819,4 +801,21 @@ size_t CString::find_first_not_of(char c, size_t pos) const {
         }
     }
     return -1;
+}
+
+CString& CString::retype_to_string(int retyped) {
+    retyped = std::abs(retyped); // Работаем только с положительным числом
+
+    if (retyped == 0) {
+        this->_data[0] = 0;
+    }
+
+    while (retyped > 0) {
+        int digit = retyped % 10; // Получаем последнюю цифру
+        char *_digit = new char(digit + '0');
+        this->append(_digit); // Вставляем цифру в начало вектора
+        retyped /= 10; // Убираем последнюю цифру из числа
+    }
+
+    return *this;
 }

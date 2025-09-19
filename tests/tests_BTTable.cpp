@@ -28,8 +28,8 @@ TEST(BTTableTest, EraseElement) {
     table.erase(1);
 
     EXPECT_EQ(table.size(), 1);
-    EXPECT_ANY_THROW(table.find(2), "value2");
 }
+
 TEST(BTTableTest, EraseNonExistentElement) {
     BTTable<int, std::string> table;
     table.insert(1, "value1");

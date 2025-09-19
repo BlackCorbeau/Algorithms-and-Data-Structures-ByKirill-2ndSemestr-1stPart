@@ -48,12 +48,13 @@ void BTTable<Tkey, Tval>::insert(Tkey key, Tval val) {
 template <class Tkey, class Tval>
 void BTTable<Tkey, Tval>::erase(Tkey key) {
     TPair<Tkey, Tval> tempPair(key, Tval());
-
-    if (table.Search(tempPair) != nullptr) {
+    TrNode<TPair<Tkey, Tval>>* node = table.Search(tempPair);
+    if (node != nullptr) {
         table.Remove(tempPair);
         _size--;
     }
 }
+
 
 template <class Tkey, class Tval>
 Tval BTTable<Tkey, Tval>::find(Tkey key) {

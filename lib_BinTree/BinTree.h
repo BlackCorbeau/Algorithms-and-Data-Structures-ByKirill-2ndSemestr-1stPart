@@ -3,6 +3,7 @@
 #ifndef LIB_BINTREE_LIB_BINTREE_HEDER_H_
 #define LIB_BINTREE_LIB_BINTREE_HEDER_H_
 
+#include <cstddef>
 #include <iostream>
 #include <iomanip>
 #include <stdexcept>
